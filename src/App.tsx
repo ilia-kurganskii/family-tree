@@ -3,7 +3,6 @@ import FamilyTree from "./features/familyTree/FamilyTree/FamilyTree.component";
 import { GordeevaMockData } from "./features/familyTree/FamilyTree/FamilyTree.mock";
 import { initTree } from "./features/familyTree/treeOperations/initTree";
 import { expandBranch } from "./features/familyTree/treeOperations/expandBranch";
-import Info from "./features/common/Header/Header.component";
 import "./App.scss";
 import Header from "./features/common/Header/Header.component";
 
