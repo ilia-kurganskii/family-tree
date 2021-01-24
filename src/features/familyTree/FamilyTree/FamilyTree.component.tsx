@@ -9,13 +9,12 @@ const NODE_HEIGHT = 130;
 const X_GAP = 10;
 const Y_GAP = 40;
 
-const SCROLL_STYLE = { overflow: "scroll" };
-
 export interface FamilyTreeProps {
   marginLeft?: number;
   marginRight?: number;
   marginBottom?: number;
   marginTop?: number;
+  className?: string;
   expandBranch: (id: string) => void;
   root: ProcessedFamilyNode;
 }
@@ -182,6 +181,6 @@ export default class FamilyTree extends React.PureComponent<FamilyTreeProps> {
   }
 
   render() {
-    return <div style={SCROLL_STYLE} ref={this.ref} />;
+    return <div className={this.props.className} ref={this.ref} />;
   }
 }

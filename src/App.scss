@@ -1,2 +1,22 @@
-.info {
+.main {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  .main_info {
+    display: flex;
+    flex-direction: column;
+    max-width: 53.7rem;
+    text-align: center;
+  }
+
+  .main_info_firstLine{
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+  }
+
+  .main_familyTree {
+    max-width: 100%;
+    overflow: scroll;
+  }
 }
