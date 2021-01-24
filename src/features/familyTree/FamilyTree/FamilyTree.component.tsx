@@ -28,6 +28,8 @@ export default class FamilyTree extends React.PureComponent<FamilyTreeProps> {
     super(props);
     this.updateD3 = this.updateD3.bind(this);
     this.onExpand = this.onExpand.bind(this);
+    this.updateLinks = this.updateLinks.bind(this);
+    this.updateSvgSize = this.updateSvgSize.bind(this);
   }
 
   componentDidMount() {
@@ -52,23 +54,38 @@ export default class FamilyTree extends React.PureComponent<FamilyTreeProps> {
   }
 
   private updateD3(props: FamilyTreeProps) {
+    const root = this.tree(d3.hierarchy<ProcessedFamilyNode>(props.root));
+
+    const nodes = root.descendants();
+    const links = root.links();
+
+    this.updateSvgSize(root);
+    this.updateLinks(links);
+    this.updateNodes(nodes);
+  }
+
+  /**
+   * Update SVG size
+   * Calculate new height and width and update svg attributes
+   * @param root
+   * @private
+   */
+  private updateSvgSize(
+    root: d3.HierarchyPointNode<ProcessedFamilyNode>
+  ): void {
     let {
       marginBottom = 10,
       marginLeft = 10,
       marginRight = 10,
       marginTop = 10,
-    } = props;
-
-    const root = this.tree(d3.hierarchy<ProcessedFamilyNode>(props.root));
-
-    const nodes = root.descendants();
-    const links = root.links();
+    } = this.props;
 
     let left = root.x;
     let right = root.x;
     let bottom = root.y;
     let top = root.y;
 
+    const nodes = root.descendants();
     nodes.forEach((node) => {
       left = Math.min(node.x, left);
       right = Math.max(node.x, right);
@@ -87,36 +104,25 @@ export default class FamilyTree extends React.PureComponent<FamilyTreeProps> {
       .attr("width", width + "px")
       .attr("height", height + "px")
       .attr("xmlns", "http://www.w3.org/2000/svg");
+  }
 
-    const link = this.svg.selectAll("path.link").data(links, (d: any) => {
-      return d.target.data.id;
-    });
-
-    const linkEnter = link.enter();
-
-    linkEnter
-      .insert("path", "g")
-      .attr("class", "link")
-      .attr(
-        "d",
-        (d) =>
-          `
-             M${d.source.x + NODE_WIDTH / 2},${d.source.y}
-             v${d.target.y - d.source.y - 5}
-             h${d.target.x - d.source.x}
-           `
-      );
-
-    link.exit().remove();
-
+  /**
+   * Added new nodes and remove old
+   * @param nodes
+   * @private
+   */
+  private updateNodes(
+    nodes: d3.HierarchyPointNode<ProcessedFamilyNode>[]
+  ): void {
     let node = this.svg.selectAll(".node-wrapper").data(nodes, (d: any) => {
       return d.data.id;
     });
 
     const nodeEnter = node.enter();
 
-    nodeEnter.transition().duration(400);
-
+    /**
+     * Use foreignObject to render div in svg
+     */
     const nodeBlock = nodeEnter
       .append("foreignObject")
       .attr("class", "node-wrapper")
@@ -178,6 +184,42 @@ export default class FamilyTree extends React.PureComponent<FamilyTreeProps> {
     });
 
     node.exit().remove();
+  }
+
+  /**
+   * Add new links and remove old
+   * @param links
+   * @private
+   */
+  private updateLinks(
+    links: d3.HierarchyPointLink<ProcessedFamilyNode>[]
+  ): void {
+    const link = this.svg.selectAll("path.link").data(links, (d: any) => {
+      return d.target.data.id;
+    });
+
+    const linkEnter = link.enter();
+
+    /**
+     * M - move to
+     * v - vertical line
+     * h - horizontal line
+     */
+    linkEnter
+      .insert("path", "g")
+      .attr("class", "link")
+      .attr(
+        "d",
+        (d) =>
+          `
+             M${d.source.x + NODE_WIDTH / 2},${d.source.y}
+             v${d.target.y - d.source.y - 5}
+             h${d.target.x - d.source.x}
+           `
+      );
+
+    // remove old links
+    link.exit().remove();
   }
 
   render() {

@@ -1,4 +1,3 @@
-import cloneDeep from "lodash/cloneDeep";
 import { ProcessedFamilyNode } from "../models/ProcessedFamilyNode.model";
 import { expandNode } from "./expandNode";
 import { collapseNode } from "./collapseNode";

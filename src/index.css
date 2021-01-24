@@ -25,6 +25,12 @@ body {
   background-color: var(--background-color);
 }
 
+
+html {
+  font-family: "PlayfairDisplay", sans-serif;
+  font-size: 10px;
+}
+
 .typography__primary {
   font-family: "PlayfairDisplay", sans-serif;
 }
@@ -37,7 +43,3 @@ body {
   display: none;
 }
 
-html {
-  font-family: "PlayfairDisplay", sans-serif;
-  font-size: 10px;
-}
