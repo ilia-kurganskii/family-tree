@@ -292,12 +292,16 @@ export const GordeevaMockData: FamilyNode = {
             ]
         },
         {
-            id: "4",
+            id: `${id++}`,
             "name": "Петр",
             "options": {
                 "expandable": true,
                 "expanded": false
-            }
+            },
+            children: [{
+                id: `${id++}`,
+                name: "Евдокия"
+            }]
         }
     ]
 }

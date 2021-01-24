@@ -135,8 +135,11 @@ export default class FamilyTree extends React.PureComponent<FamilyTreeProps> {
             .attr("width", NODE_WIDTH)
             .attr("height", NODE_HEIGHT)
             .append("xhtml:div")
-            .attr("class", d => d.children ? "node node__withChildren" : "node")
+            .attr("class", "node")
+            .classed("node__withChildren", d => !!d.children)
             .attr("xmlns", "http://www.w3.org/1999/xhtml")
+
+        node.select(".node").classed("node__withChildren", (d: any) => !!d.children)
 
         // Render name
         nodeBlock.append("span")
@@ -149,7 +152,8 @@ export default class FamilyTree extends React.PureComponent<FamilyTreeProps> {
             .text((d) => d.data.description!)
 
         nodeBlock.append("button")
-            .text("EXPAND")
+            .attr("class", "node_expand_button typography_secondary")
+            .text("+")
             .classed("hidden", (d) => {
                 return !d.data.options?.expandable || !!d.data.options?.expanded
             })
@@ -171,6 +175,7 @@ export default class FamilyTree extends React.PureComponent<FamilyTreeProps> {
             .text((d) => d.data.secondParent?.description!)
 
         node.exit().remove();
+
 
     }
 

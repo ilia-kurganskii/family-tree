@@ -16,6 +16,15 @@
     bottom: 4px;
   }
 
+  .node_expand_button {
+    width: 31px;
+    height: 31px;
+    border-radius: 50%;
+
+    border: 1px solid var(--text-color);
+    background-color: transparent;
+  }
+
 
   .node_name {
     font-size: 1.4em;
