@@ -1,10 +1,7 @@
 import React from "react";
 import * as d3 from "d3";
 import "./FamilyTree.scss";
-import {GordeevaMockData} from "./FamilyTree.mock";
-import {FamilyNode} from "../models/FamilyNode.model";
 import {ProcessedFamilyNode} from "../models/ProcessedFamilyNode.model";
-import {Selection} from "d3-selection";
 
 const NODE_WIDTH = 130;
 const NODE_HEIGHT = 130;
@@ -13,7 +10,6 @@ const X_GAP = 10;
 const Y_GAP = 40;
 
 const SCROLL_STYLE = {overflow: "scroll"}
-
 
 export interface FamilyTreeProps {
     marginLeft?: number;
@@ -50,7 +46,6 @@ export default class FamilyTree extends React.PureComponent<FamilyTreeProps> {
     }
 
     private initSVG() {
-
         this.svg = d3.select(this.ref.current).append('svg');
         this.tree = d3.tree<ProcessedFamilyNode>().nodeSize([NODE_WIDTH + X_GAP, NODE_HEIGHT + Y_GAP]);
         this.svg.append("g");
@@ -58,7 +53,6 @@ export default class FamilyTree extends React.PureComponent<FamilyTreeProps> {
 
     private updateD3(props: FamilyTreeProps) {
         let {marginBottom = 10, marginLeft = 10, marginRight = 10, marginTop = 10} = props;
-
 
         const root = this.tree(d3.hierarchy<ProcessedFamilyNode>(props.root));
 
