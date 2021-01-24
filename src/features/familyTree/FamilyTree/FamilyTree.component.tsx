@@ -2,6 +2,7 @@ import React from "react";
 import * as d3 from "d3";
 import "./FamilyTree.scss";
 import {GordeevaMockData} from "./FamilyTree.mock";
+import {FamilyNode, FamilyTreeProps} from "./FamilyTree.model";
 
 const NODE_WIDTH = 130;
 const NODE_HEIGHT = 130;
@@ -9,36 +10,9 @@ const NODE_HEIGHT = 130;
 const X_GAP = 10;
 const Y_GAP = 40;
 
-
 const SCROLL_STYLE = {overflow: "scroll"}
 
-export interface FamilyNode {
-    name: string;
-    description?: string;
-    secondParent?: {
-        name: string,
-        description?: string;
-    },
-    options?: {
-        expandable?: boolean,
-        expanded?: boolean
-    }
-    children?: FamilyNode[]
-}
-
-interface FamilyTreeData {
-    root: FamilyNode
-}
-
-interface FamilyTreeProps {
-    marginLeft?: number;
-    marginRight?: number;
-    marginBottom?: number;
-    marginTop?: number;
-    data?: FamilyTreeData;
-}
-
-export default class FamilyTree extends React.Component<FamilyTreeProps, any> {
+export default class FamilyTree extends React.Component<FamilyTreeProps> {
 
     ref = React.createRef<HTMLDivElement>();
 

@@ -1,4 +1,4 @@
-import FamilyTree, {FamilyNode} from "./FamilyTree.component";
+import {FamilyNode} from "./FamilyTree.model";
 
 export const GordeevaMockData: FamilyNode = {
     "name": "Павел Матора",
