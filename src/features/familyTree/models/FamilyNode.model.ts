@@ -7,8 +7,7 @@ export interface FamilyNode {
         description?: string;
     },
     options?: {
-        expandable?: boolean,
-        expanded?: boolean
+        expandable?: boolean
     }
     children?: FamilyNode[] | null
 }

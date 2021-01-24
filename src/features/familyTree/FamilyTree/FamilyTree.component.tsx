@@ -95,21 +95,12 @@ export default class FamilyTree extends React.PureComponent<FamilyTreeProps> {
         const linkEnter = link
             .enter()
 
-        link.attr("d", (d) =>
-            `
-             M${d.source.x + NODE_WIDTH / 2},${d.source.y}
-             v${d.target.y - d.source.y - 2}
-             h${d.target.x - d.source.x}
-           `
-        )
-
-
         linkEnter.insert("path", "g")
             .attr("class", "link")
             .attr("d", (d) =>
                 `
              M${d.source.x + NODE_WIDTH / 2},${d.source.y}
-             v${d.target.y - d.source.y - 2}
+             v${d.target.y - d.source.y - 5}
              h${d.target.x - d.source.x}
            `
             )
@@ -151,17 +142,7 @@ export default class FamilyTree extends React.PureComponent<FamilyTreeProps> {
             .attr("class", "node_description typography__secondary")
             .text((d) => d.data.description!)
 
-        nodeBlock.append("button")
-            .attr("class", "node_expand_button typography_secondary")
-            .text("+")
-            .classed("hidden", (d) => {
-                return !d.data.options?.expandable || !!d.data.options?.expanded
-            })
-            .on("click", (d, s) => s.data.id && this.onExpand(s.data.id))
 
-        node.select("button").classed("hidden", (d) => {
-            return !d.data.options?.expandable || !!d.data.options?.expanded
-        })
 
         // Render second parent
         const secondParent = nodeBlock.filter(d => !!d.data.secondParent).append("div").attr("class", "node_second_parent");
@@ -173,6 +154,18 @@ export default class FamilyTree extends React.PureComponent<FamilyTreeProps> {
         secondParent.filter(d => !!d.data.secondParent?.description).append("span")
             .attr("class", "node_second_parent_description typography__secondary")
             .text((d) => d.data.secondParent?.description!)
+
+        nodeBlock.append("button")
+            .attr("class", "node_expand_button typography_secondary")
+            .text("+")
+            .classed("hidden", (d) => {
+                return !d.data.options?.expandable || !!d.data.expanded
+            })
+            .on("click", (d, s) => s.data.id && this.onExpand(s.data.id))
+
+        node.select("button").classed("hidden", (d) => {
+            return !d.data.options?.expandable || !!d.data.expanded
+        })
 
         node.exit().remove();
 

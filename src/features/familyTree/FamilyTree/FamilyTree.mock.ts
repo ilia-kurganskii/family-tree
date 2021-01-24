@@ -13,7 +13,6 @@ export const GordeevaMockData: FamilyNode = {
             "name": "Илья",
             "options": {
                 "expandable": true,
-                "expanded": false
             },
             children: [{
                 id: `${id++}`,
@@ -246,7 +245,6 @@ export const GordeevaMockData: FamilyNode = {
                             },
                             options: {
                                 expandable: true,
-                                expanded: false
                             }
                         },
                         {
@@ -284,7 +282,6 @@ export const GordeevaMockData: FamilyNode = {
                             },
                             options: {
                                 expandable: true,
-                                expanded: false
                             }
                         }
                     ]
@@ -296,7 +293,6 @@ export const GordeevaMockData: FamilyNode = {
             "name": "Петр",
             "options": {
                 "expandable": true,
-                "expanded": false
             },
             children: [{
                 id: `${id++}`,

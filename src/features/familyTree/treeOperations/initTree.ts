@@ -19,10 +19,10 @@ function expandFirstNodeInLevel(root: ProcessedFamilyNode): void {
                 if (child.options?.expandable)
                     if (!levelWasExpanded) {
                         levelWasExpanded = true;
-                        child.options.expanded = true;
+                        child.expanded = true;
                         expandFirstNodeInLevel(child);
                     } else {
-                        child.options.expanded = false;
+                        child.expanded = false;
                         child._children = child.children;
                         child.children = null;
                     }
