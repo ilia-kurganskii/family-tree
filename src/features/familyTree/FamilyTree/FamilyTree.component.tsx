@@ -1,30 +1,27 @@
 import React from "react";
 import * as d3 from "d3";
-import data from "./flare-2.json";
 import "./FamilyTree.scss";
+import {GordeevaMockData} from "./FamilyTree.mock";
 
 const NODE_WIDTH = 130;
 const NODE_HEIGHT = 130;
 
-const HEIGHT_PARENT_NAME = 19;
-const OFFSET_NAME_DESCRIPTION = 8;
-const HEIGHT_DESCRIPTION = 16;
-const OFFSET_SECOND_PARENT = 10;
-const OFFSET_SECOND_PARENT_DESCRIPTION = 4;
+const X_GAP = 10;
+const Y_GAP = 40;
 
-const X_GAP = 15;
-const Y_GAP = 90;
-
-const CIRCLE_RADIUS = 4;
 
 const SCROLL_STYLE = {overflow: "scroll"}
 
-interface FamilyNode {
+export interface FamilyNode {
     name: string;
     description?: string;
     secondParent?: {
         name: string,
         description?: string;
+    },
+    options?: {
+        expandable?: boolean,
+        expanded?: boolean
     }
     children?: FamilyNode[]
 }
@@ -48,11 +45,9 @@ export default class FamilyTree extends React.Component<FamilyTreeProps, any> {
     componentDidMount() {
         let {marginBottom = 10, marginLeft = 10, marginRight = 10, marginTop = 10} = this.props;
 
-        const d3Data = data;
-
         const svg = d3.select(this.ref.current).append('svg');
         const tree = d3.tree<FamilyNode>().nodeSize([NODE_WIDTH + X_GAP, NODE_HEIGHT + Y_GAP])
-        const root = tree(d3.hierarchy<FamilyNode>(d3Data));
+        const root = tree(d3.hierarchy<FamilyNode>(GordeevaMockData));
 
         const nodes = root.descendants();
         const links = root.links();
@@ -72,12 +67,16 @@ export default class FamilyTree extends React.Component<FamilyTreeProps, any> {
         const width = right - left + NODE_WIDTH + marginLeft + marginRight;
         const height = top - bottom + NODE_HEIGHT + marginBottom + marginTop;
 
-        svg.attr("viewBox", [left - marginLeft, bottom - marginBottom, width, height].toString()).attr("width", width + "px").attr("height", height + "px")
+        svg.attr("viewBox", [left - marginLeft, bottom - marginBottom, width, height].toString())
+            .attr("width", width + "px")
+            .attr("height", height + "px")
+            .attr("xmlns", "http://www.w3.org/2000/svg")
 
 
         const linkEnter = svg.append("g")
             .attr("fill", "none")
             .attr("stroke", "#000")
+            .attr('stroke-width', 1)
             .selectAll(".link")
             .data(links)
             .enter()
@@ -85,50 +84,49 @@ export default class FamilyTree extends React.Component<FamilyTreeProps, any> {
         linkEnter.insert("path", "g")
             .attr("d", (d) =>
                 `
-             M${d.source.x + NODE_WIDTH / 2},${d.source.y + NODE_HEIGHT + 15}
-             v${d.target.y - d.source.y - NODE_HEIGHT - 30}
+             M${d.source.x + NODE_WIDTH / 2},${d.source.y}
+             v${d.target.y - d.source.y - 2}
              h${d.target.x - d.source.x}
            `
             )
 
-        linkEnter.insert("circle", "g")
-            .attr("fill", "#000")
-            .attr("r", CIRCLE_RADIUS)
-            .attr("cx", d => d.source.x + NODE_WIDTH / 2)
-            .attr("cy", d => d.source.y + NODE_HEIGHT + 15)
 
-        let nodeEnter = svg.append("g")
+        let nodeEnter = svg
             .selectAll(".node")
             .data(nodes)
             .enter();
 
         const nodeBlock = nodeEnter
-            .append("g")
-            .attr("class", "node")
-            .attr("transform", d => `translate(${d.x}, ${d.y})`);
+            .append("foreignObject")
+            .attr("x", d => d.x)
+            .attr("y", d => d.y)
+            .attr("fill", "black")
+            .attr("width", NODE_WIDTH)
+            .attr("height", NODE_HEIGHT)
+            .append("xhtml:div")
+            .attr("class", d => d.children ? "node node__withChildren" : "node")
+            .attr("xmlns", "http://www.w3.org/1999/xhtml")
 
         // Render name
-        nodeBlock.append("text")
-            .attr("class", "node_name")
-            .attr("dy", HEIGHT_PARENT_NAME)
-            .attr("dx", NODE_WIDTH / 2)
+        nodeBlock.append("span")
+            .attr("class", "node_name typography__primary")
             .text((d) => d.data.name)
 
         // Render description
-        nodeBlock.filter(d => !!d.data.description).append("text")
-            .attr("class", "node_description")
-            .attr("dy", HEIGHT_PARENT_NAME + OFFSET_NAME_DESCRIPTION + HEIGHT_DESCRIPTION)
-            .attr("dx", NODE_WIDTH / 2)
+        nodeBlock.filter(d => !!d.data.description).append("span")
+            .attr("class", "node_description typography__secondary")
             .text((d) => d.data.description!)
 
         // Render second parent
-        const secondParent = nodeBlock.filter(d => !!d.data.secondParent);
+        const secondParent = nodeBlock.filter(d => !!d.data.secondParent).append("div").attr("class", "node_second_parent");
 
-        secondParent.append("text")
-            .attr("class", "node_second_parent_name")
-            .attr("dy", HEIGHT_PARENT_NAME + OFFSET_NAME_DESCRIPTION + HEIGHT_DESCRIPTION + OFFSET_SECOND_PARENT + HEIGHT_PARENT_NAME * 2)
-            .attr("dx", NODE_WIDTH / 2)
+        secondParent.append("span")
+            .attr("class", "node_second_parent_name typography__primary")
             .text((d) => d.data.secondParent?.name!)
+
+        secondParent.filter(d => !!d.data.secondParent?.description).append("span")
+            .attr("class", "node_second_parent_description typography__secondary")
+            .text((d) => d.data.secondParent?.description!)
 
 
     }

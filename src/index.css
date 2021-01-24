@@ -1,13 +1,35 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@font-face {
+    font-family: 'PlayfairDisplay';
+    src: url('./assets/fonts/PlayfairDisplay.ttf') format('truetype-variations'),
+    url('./assets/fonts/PlayfairDisplay.ttf') format('truetype');
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+@font-face {
+    font-family: 'PoiretOne';
+    src: url('./assets/fonts/PoiretOne-Regular.ttf');
+}
+
+:root {
+    --background-color: #fff6e9;
+    --text-color: #111111;
+}
+
+body {
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: var(--background-color);
+}
+
+.typography__primary {
+    font-family: 'PlayfairDisplay', sans-serif;
+}
+
+.typography__secondary {
+    font-family: 'PoiretOne', cursive;
+}
+
+html {
+    font-family: 'PlayfairDisplay', sans-serif;
+    font-size: 10px;
 }

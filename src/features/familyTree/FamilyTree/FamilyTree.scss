@@ -1,29 +1,58 @@
 .node {
-    .node_name {
-        font-size: 14px;
-        stroke-width: 0.1;
-        fill: black;
-        stroke: black;
-        text-anchor: middle;
-        dominant-baseline: middle;
-    }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  padding-bottom: 16px;
+  background-color: var(--background-color);
 
-    .node_description{
-        font-size: 14px;
-        stroke-width: 0.1;
-        fill: black;
-        stroke: black;
-        text-anchor: middle;
-        dominant-baseline: middle;
-    }
+  &.node__withChildren:after{
+    content: '';
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    position: absolute;
+    background-color: black;
+    bottom: 4px;
+  }
+
+
+  .node_name {
+    font-size: 1.4em;
+    letter-spacing: 0.4375px;
+    color: var(--text-color);
+    font-weight: 900;
+    font-variation-settings: "wght" 900;
+    margin-bottom: 0.8rem;
+  }
+
+  .node_description {
+    font-size: 1.4em;
+    letter-spacing: 0.4375px;
+    color: var(--text-color);
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
+  .node_second_parent {
+    display: flex;
+    flex-direction: column;
 
     .node_second_parent_name {
-        font-size: 14px;
-        stroke-width: 0.1;
-        fill: black;
-        stroke: black;
-        text-anchor: middle;
-        dominant-baseline: middle;
-
+      font-size: 1.4em;
+      color: var(--text-color);
+      text-align: center;
+      margin-bottom: 0.4rem;
+      letter-spacing: 0.4375px;
     }
+
+    .node_second_parent_description {
+      font-size: 1.4em;
+      color: var(--text-color);
+      text-align: center;
+      letter-spacing: 0.4375px;
+    }
+  }
+
+
 }
