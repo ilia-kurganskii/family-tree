@@ -1,30 +1,24 @@
 import cloneDeep from "lodash/cloneDeep";
 import { FamilyNode } from "../models/FamilyNode.model";
 import { ProcessedFamilyNode } from "../models/ProcessedFamilyNode.model";
+import { collapseNode } from "./collapseNode";
 
 export function initTree(root: FamilyNode): ProcessedFamilyNode {
   const newRoot: ProcessedFamilyNode = cloneDeep(root);
-  expandFirstNodeInLevel(newRoot);
+  collapseAllLevels(newRoot);
   return newRoot;
 }
 
-function expandFirstNodeInLevel(root: ProcessedFamilyNode): void {
+function collapseAllLevels(root: ProcessedFamilyNode): ProcessedFamilyNode {
   if (!root.children) {
-    return;
+    return root;
   }
-  let levelWasExpanded = false;
-  root.children.map((child) => {
-    if (child.children) {
-      if (child.options?.expandable)
-        if (!levelWasExpanded) {
-          levelWasExpanded = true;
-          child.expanded = true;
-          expandFirstNodeInLevel(child);
-        } else {
-          child.expanded = false;
-          child._children = child.children;
-          child.children = null;
-        }
+  root.children = root.children.map((child) => {
+    if (child.options?.expandable) {
+      const handledNode = collapseAllLevels(child);
+      return collapseNode(handledNode);
     }
+    return collapseAllLevels(child);
   });
+  return root;
 }
