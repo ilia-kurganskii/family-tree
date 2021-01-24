@@ -1,25 +1,44 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useCallback, useState } from "react";
+import FamilyTree from "./features/familyTree/FamilyTree/FamilyTree.component";
+import { GordeevaMockData } from "./features/familyTree/FamilyTree/FamilyTree.mock";
+import { initTree } from "./features/familyTree/treeOperations/initTree";
+import { expandBranch } from "./features/familyTree/treeOperations/expandBranch";
+import "./App.scss";
+import Header from "./features/common/Header/Header.component";
+
+const init = initTree(GordeevaMockData);
 
 function App() {
+  const [root, setRoot] = useState(init);
+
+  const expandBranchCallback = useCallback(
+    (id: string) => {
+      setRoot(expandBranch(root, id));
+    },
+    [root]
+  );
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Header />
+
+      <main className="main">
+        <h2 className="main_info typography__secondary">
+          <span className="main_info_firstLine">
+            Здравствуйте, Если вы сюда попали, значит это ваша родословная.
+          </span>
+          Мы собираем информацию о нашем древо. Если вы хотите дополнить,
+          прислать фотографии, написать пару строчек о себе или о близком
+          человеке напишите нам в «обратную связь», мы с удвольствием ответим и
+          дополним.
+        </h2>
+        <FamilyTree
+          className="main_familyTree"
+          root={root}
+          expandBranch={expandBranchCallback}
+        />
+      </main>
+    </>
   );
 }
 
