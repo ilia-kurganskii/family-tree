@@ -1,38 +1,69 @@
-import {FamilyNode} from "./FamilyTree.model";
+import {FamilyNode} from "../models/FamilyNode.model";
+
+
+let id = 0;
 
 export const GordeevaMockData: FamilyNode = {
+    id: `${id++}`,
     "name": "Павел Матора",
     "description": "1850 c. Горбунки",
     "children": [
         {
+            id: `${id++}`,
             "name": "Илья",
             "options": {
                 "expandable": true,
                 "expanded": false
-            }
+            },
+            children: [{
+                id: `${id++}`,
+
+                "name": "Григорий"
+            },
+                {
+                    id: `${id++}`,
+
+                    "name": "Егор"
+                }]
         },
         {
+            id: `${id++}`,
             "name": "Григорий"
         },
         {
+            id: `${id++}`,
             "name": "Егор"
         },
         {
+            id: `${id++}`,
             "name": "Борис",
+            options: {
+                expandable: true
+            },
             "children": [
                 {
+                    id: `${id++}`,
+
                     "name": "Мария"
                 },
                 {
+                    id: `${id++}`,
+
                     "name": "Фрося"
                 },
                 {
+                    id: `${id++}`,
+
                     "name": "Василий"
                 },
                 {
+                    id: `${id++}`,
+
                     "name": "Иван"
                 },
                 {
+                    id: `${id++}`,
+
                     "name": "Грегорий",
                     "description": "1876-1918",
                     "secondParent": {
@@ -41,6 +72,8 @@ export const GordeevaMockData: FamilyNode = {
                     },
                     "children": [
                         {
+                            id: `${id++}`,
+
                             "name": "Наталья",
                             secondParent: {
                                 name: "Александр Чичаевы",
@@ -48,6 +81,8 @@ export const GordeevaMockData: FamilyNode = {
                             },
                             "children": [
                                 {
+                                    id: `${id++}`,
+
                                     "name": "Зинаида",
                                     description: "1922-2001 Самара",
                                     secondParent: {
@@ -55,6 +90,8 @@ export const GordeevaMockData: FamilyNode = {
                                     },
                                     children: [
                                         {
+                                            id: `${id++}`,
+
                                             name: "Татьяна",
                                             description: "1955",
                                             secondParent: {
@@ -62,13 +99,19 @@ export const GordeevaMockData: FamilyNode = {
                                             },
                                             children: [
                                                 {
+                                                    id: `${id++}`,
+
                                                     name: "Александра",
                                                     description: "1980"
                                                 },
                                                 {
+                                                    id: `${id++}`,
+
                                                     name: "Наталья",
                                                     description: "1983"
                                                 }, {
+                                                    id: `${id++}`,
+
                                                     name: "Мария",
                                                     description: "1997"
                                                 }
@@ -78,6 +121,8 @@ export const GordeevaMockData: FamilyNode = {
 
                                 },
                                 {
+                                    id: `${id++}`,
+
                                     "name": "Александра",
                                     description: "1923-2001 Самара",
                                     secondParent: {
@@ -85,24 +130,36 @@ export const GordeevaMockData: FamilyNode = {
                                     },
                                     children: [
                                         {
+                                            id: `${id++}`,
+
                                             name: "Андрей",
                                             description: "1961 Самара"
                                         }
                                     ]
                                 },
                                 {
+                                    id: `${id++}`,
+
                                     name: "Галина"
                                 },
                                 {
+                                    id: `${id++}`,
+
                                     name: "Геннадий"
                                 },
                                 {
+                                    id: `${id++}`,
+
                                     name: "Вячеслав"
                                 },
                                 {
+                                    id: `${id++}`,
+
                                     name: "Александр"
                                 },
                                 {
+                                    id: `${id++}`,
+
                                     name: "Октябрина",
                                     description: "1938 Самара",
                                     secondParent: {
@@ -110,42 +167,61 @@ export const GordeevaMockData: FamilyNode = {
                                     },
                                     children: [
                                         {
+                                            id: `${id++}`,
+
                                             name: "Евгения",
                                             description: "1948",
                                             secondParent: {
                                                 name: "Владимир Клементьевы"
                                             },
                                             children: [{
+                                                id: `${id++}`,
+
                                                 name: "Мари",
                                                 description: "1992"
                                             }, {
+                                                id: `${id++}`,
+
                                                 name: "Анастасия",
                                                 description: "1992"
                                             }]
                                         },
                                         {
+                                            id: `${id++}`,
+
                                             name: "Галина",
                                             description: "1969",
                                             secondParent: {
                                                 name: "Дмитрий Головы"
                                             }, children: [{
+                                                id: `${id++}`,
+
                                                 name: "Дарья",
                                                 description: "1998"
                                             }, {
+                                                id: `${id++}`,
+
                                                 name: "Василий",
                                                 description: "2011"
                                             }]
                                         }
                                     ]
                                 },
-                                {name: "Лидия"}
+                                {
+                                    id: `${id++}`,
+                                    name: "Лидия"
+                                }
                             ]
                         },
                         {
+                            id: `${id++}`,
+
                             "name": "Дмитрий",
                             description: "1901-1943"
                         },
                         {
+                            id: `${id++}`,
+
                             "name": "Ефросинья",
                             secondParent: {
                                 name: "Василий Яковлевы",
@@ -153,6 +229,8 @@ export const GordeevaMockData: FamilyNode = {
                             }
                         },
                         {
+                            id: `${id++}`,
+
                             "name": "Александр",
                             secondParent: {
                                 name: "Софья Моторовы",
@@ -160,6 +238,8 @@ export const GordeevaMockData: FamilyNode = {
                             }
                         },
                         {
+                            id: `${id++}`,
+
                             "name": "Пелагея",
                             secondParent: {
                                 name: "Ануфрий Рогоза"
@@ -170,10 +250,14 @@ export const GordeevaMockData: FamilyNode = {
                             }
                         },
                         {
+                            id: `${id++}`,
+
                             "name": "Екатерина",
                             description: "1909-1945"
                         },
                         {
+                            id: `${id++}`,
+
                             "name": "Елена",
                             secondParent: {
                                 name: "Иван Андрасюк",
@@ -181,6 +265,8 @@ export const GordeevaMockData: FamilyNode = {
                             }
                         },
                         {
+                            id: `${id++}`,
+
                             "name": "Евгения",
                             secondParent: {
                                 name: "Леонид Матора",
@@ -188,6 +274,8 @@ export const GordeevaMockData: FamilyNode = {
                             }
                         },
                         {
+                            id: `${id++}`,
+
                             "name": "Никифор",
                             description: "1917-1998",
                             secondParent: {
@@ -204,6 +292,7 @@ export const GordeevaMockData: FamilyNode = {
             ]
         },
         {
+            id: "4",
             "name": "Петр",
             "options": {
                 "expandable": true,

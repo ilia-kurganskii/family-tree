@@ -29,6 +29,10 @@ body {
     font-family: 'PoiretOne', cursive;
 }
 
+.hidden {
+    display: none;
+}
+
 html {
     font-family: 'PlayfairDisplay', sans-serif;
     font-size: 10px;
