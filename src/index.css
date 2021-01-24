@@ -1,41 +1,41 @@
 @font-face {
-    font-family: 'PlayfairDisplay';
-    src: url('./assets/fonts/PlayfairDisplay.ttf') format('truetype-variations'),
-    url('./assets/fonts/PlayfairDisplay.ttf') format('truetype');
-    font-weight: 100 1000;
-    font-stretch: 25% 151%;
+  font-family: "PlayfairDisplay";
+  src: url("./assets/fonts/PlayfairDisplay.ttf") format("truetype-variations"),
+    url("./assets/fonts/PlayfairDisplay.ttf") format("truetype");
+  font-weight: 100 1000;
+  font-stretch: 25% 151%;
 }
 
 @font-face {
-    font-family: 'PoiretOne';
-    src: url('./assets/fonts/PoiretOne-Regular.ttf');
+  font-family: "PoiretOne";
+  src: url("./assets/fonts/PoiretOne-Regular.ttf");
 }
 
 :root {
-    --background-color: #fff6e9;
-    --text-color: #111111;
+  --background-color: #fff6e9;
+  --text-color: #111111;
 }
 
 body {
-    margin: 0;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    background-color: var(--background-color);
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--background-color);
 }
 
 .typography__primary {
-    font-family: 'PlayfairDisplay', sans-serif;
+  font-family: "PlayfairDisplay", sans-serif;
 }
 
 .typography__secondary {
-    font-family: 'PoiretOne', cursive;
+  font-family: "PoiretOne", cursive;
 }
 
 .hidden {
-    display: none;
+  display: none;
 }
 
 html {
-    font-family: 'PlayfairDisplay', sans-serif;
-    font-size: 10px;
+  font-family: "PlayfairDisplay", sans-serif;
+  font-size: 10px;
 }

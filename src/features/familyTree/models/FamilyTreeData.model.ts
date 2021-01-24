@@ -1,6 +1,5 @@
-import {FamilyNode} from "./FamilyNode.model";
+import { FamilyNode } from "./FamilyNode.model";
 
 export interface FamilyTreeData {
-    root: FamilyNode
+  root: FamilyNode;
 }
-

@@ -1,16 +1,16 @@
-import {ProcessedFamilyNode} from "../models/ProcessedFamilyNode.model";
+import { ProcessedFamilyNode } from "../models/ProcessedFamilyNode.model";
 
-export function expandNode(node: ProcessedFamilyNode):ProcessedFamilyNode{
-    if (node.children) {
-        return {
-            ...node,
-            expanded: true
-        };
-    }
+export function expandNode(node: ProcessedFamilyNode): ProcessedFamilyNode {
+  if (node.children) {
     return {
-        ...node,
-        children: node._children,
-        _children: null,
-        expanded: true
-    }
+      ...node,
+      expanded: true,
+    };
+  }
+  return {
+    ...node,
+    children: node._children,
+    _children: null,
+    expanded: true,
+  };
 }
