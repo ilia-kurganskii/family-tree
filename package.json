@@ -42,6 +42,7 @@
     ]
   },
   "devDependencies": {
-    "@types/d3": "^6.2.0"
+    "@types/d3": "6.2.0",
+    "node-sass": "4.0.0"
   }
 }

@@ -1,5 +1,5 @@
 import React, {useRef} from 'react';
-import FamilyTree from "./features/familyTree/FamilyTree.component";
+import FamilyTree from "./features/familyTree/FamilyTree/FamilyTree.component";
 
 function App() {
   return (
