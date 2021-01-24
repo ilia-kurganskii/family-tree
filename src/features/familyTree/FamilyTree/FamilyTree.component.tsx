@@ -60,7 +60,6 @@ export default class FamilyTree extends React.PureComponent<FamilyTreeProps> {
         let {marginBottom = 10, marginLeft = 10, marginRight = 10, marginTop = 10} = props;
 
 
-        console.log(props.root);
         const root = this.tree(d3.hierarchy<ProcessedFamilyNode>(props.root));
 
         const nodes = root.descendants();
@@ -124,6 +123,8 @@ export default class FamilyTree extends React.PureComponent<FamilyTreeProps> {
             })
 
         const nodeEnter = node.enter();
+
+        nodeEnter.transition().duration(400);
 
         const nodeBlock = nodeEnter
             .append("foreignObject")
