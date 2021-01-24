@@ -128,13 +128,27 @@ export default class FamilyTree extends React.PureComponent<FamilyTreeProps> {
       .attr("class", "node-wrapper")
       .attr("x", (d) => d.x)
       .attr("y", (d) => d.y)
-      .attr("fill", "black")
       .attr("width", NODE_WIDTH)
       .attr("height", NODE_HEIGHT)
       .append("xhtml:div")
+      .style("opacity", 0)
       .attr("class", "node")
       .classed("node__withChildren", (d) => !!d.children)
       .attr("xmlns", "http://www.w3.org/1999/xhtml");
+
+    let minDepth = Number.MAX_VALUE;
+    nodeEnter.each((node) => {
+      minDepth = Math.min(node.depth, minDepth);
+    });
+
+    nodeBlock
+      .transition()
+      .delay((d) => (d.depth - minDepth) * 800 + 200)
+      // @ts-ignore
+      .styleTween("opacity", function () {
+        return d3.interpolateNumber(0, 1);
+      })
+      .duration(1000);
 
     node
       .select(".node")
@@ -205,9 +219,10 @@ export default class FamilyTree extends React.PureComponent<FamilyTreeProps> {
      * v - vertical line
      * h - horizontal line
      */
-    linkEnter
+    const newLink = linkEnter
       .insert("path", "g")
       .attr("class", "link")
+      .attr("visibility", "hidden")
       .attr(
         "d",
         (d) =>
@@ -218,8 +233,52 @@ export default class FamilyTree extends React.PureComponent<FamilyTreeProps> {
            `
       );
 
+    const tweenDash = function () {
+      // @ts-ignore this === path element
+      const length = this.getTotalLength();
+      const interpolateFunc = d3.interpolateString(
+        "0," + length,
+        length + "," + length
+      );
+      return function (time: number) {
+        return interpolateFunc(time);
+      };
+    };
+
+    const tweenDashReverse = function () {
+      // @ts-ignore this === path element
+      const length = this.getTotalLength();
+      const interpolateFunc = d3.interpolateString(
+        length + "," + length,
+        "0," + length
+      );
+      return function (time: number) {
+        return interpolateFunc(time);
+      };
+    };
+
+    let minDepth = Number.MAX_VALUE;
+    linkEnter.each((node) => {
+      minDepth = Math.min(node.source.depth, minDepth);
+    });
+
+    newLink
+      .transition()
+      .duration(1000)
+      .delay((d) =>
+        d.source.depth === 0 ? 800 : (d.source.depth - minDepth) * 800
+      )
+      .attr("visibility", "visible")
+      .attrTween("stroke-dasharray", tweenDash);
+
     // remove old links
-    link.exit().remove();
+    link
+      .exit()
+      .transition()
+      .duration(500)
+      .attr("visibility", "visible")
+      .attrTween("stroke-dasharray", tweenDashReverse)
+      .remove();
   }
 
   render() {
