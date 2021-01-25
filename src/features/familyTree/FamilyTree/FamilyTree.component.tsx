@@ -1,7 +1,7 @@
-import React from "react";
 import * as d3 from "d3";
-import "./FamilyTree.scss";
+import React from "react";
 import { ProcessedFamilyNode } from "../models/ProcessedFamilyNode.model";
+import "./FamilyTree.scss";
 
 const NODE_WIDTH = 130;
 const NODE_HEIGHT = 130;
@@ -73,7 +73,7 @@ export default class FamilyTree extends React.PureComponent<FamilyTreeProps> {
   private updateSvgSize(
     root: d3.HierarchyPointNode<ProcessedFamilyNode>
   ): void {
-    let {
+    const {
       marginBottom = 10,
       marginLeft = 10,
       marginRight = 10,
@@ -114,7 +114,7 @@ export default class FamilyTree extends React.PureComponent<FamilyTreeProps> {
   private updateNodes(
     nodes: d3.HierarchyPointNode<ProcessedFamilyNode>[]
   ): void {
-    let node = this.svg.selectAll(".node-wrapper").data(nodes, (d: any) => {
+    const node = this.svg.selectAll(".node-wrapper").data(nodes, (d: any) => {
       return d.data.id;
     });
 
@@ -145,6 +145,7 @@ export default class FamilyTree extends React.PureComponent<FamilyTreeProps> {
     nodeG
       .transition()
       .delay((d) => (d.depth - minDepth) * 800 + 200)
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       .styleTween("opacity", function () {
         return d3.interpolateNumber(0, 1);
@@ -177,13 +178,13 @@ export default class FamilyTree extends React.PureComponent<FamilyTreeProps> {
     secondParent
       .append("span")
       .attr("class", "node_second_parent_name typography__primary")
-      .text((d) => d.data.secondParent?.name!);
+      .text((d) => d.data.secondParent?.name ?? "");
 
     secondParent
       .filter((d) => !!d.data.secondParent?.description)
       .append("span")
       .attr("class", "node_second_parent_description typography__secondary")
-      .text((d) => d.data.secondParent?.description!);
+      .text((d) => d.data.secondParent?.description ?? "");
 
     nodeBlock
       .append("button")
@@ -235,6 +236,7 @@ export default class FamilyTree extends React.PureComponent<FamilyTreeProps> {
       );
 
     const tweenDash = function () {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore this === path element
       const length = this.getTotalLength();
       const interpolateFunc = d3.interpolateString(
@@ -247,6 +249,7 @@ export default class FamilyTree extends React.PureComponent<FamilyTreeProps> {
     };
 
     const tweenDashReverse = function () {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore this === path element
       const length = this.getTotalLength();
       const interpolateFunc = d3.interpolateString(
