@@ -123,7 +123,9 @@ export default class FamilyTree extends React.PureComponent<FamilyTreeProps> {
     /**
      * Use foreignObject to render div in svg
      */
-    const nodeBlock = nodeEnter
+    const nodeG = nodeEnter.append("g").style("opacity", 0);
+
+    const nodeBlock = nodeG
       .append("foreignObject")
       .attr("class", "node-wrapper")
       .attr("x", (d) => d.x)
@@ -131,7 +133,6 @@ export default class FamilyTree extends React.PureComponent<FamilyTreeProps> {
       .attr("width", NODE_WIDTH)
       .attr("height", NODE_HEIGHT)
       .append("xhtml:div")
-      .style("opacity", 0)
       .attr("class", "node")
       .classed("node__withChildren", (d) => !!d.children)
       .attr("xmlns", "http://www.w3.org/1999/xhtml");
@@ -141,7 +142,7 @@ export default class FamilyTree extends React.PureComponent<FamilyTreeProps> {
       minDepth = Math.min(node.depth, minDepth);
     });
 
-    nodeBlock
+    nodeG
       .transition()
       .delay((d) => (d.depth - minDepth) * 800 + 200)
       // @ts-ignore
