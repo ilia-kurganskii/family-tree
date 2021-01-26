@@ -1,11 +1,15 @@
+import { Image } from "./Image.model";
+
 export interface FamilyNode {
-  id: string;
+  id?: string;
   name: string;
   description?: string;
-  secondParent?: {
-    name: string;
-    description?: string;
+  details?: {
+    images: Image[];
+    markdown: string;
   };
+  firstParent?: FamilyNode;
+  secondParent?: FamilyNode;
   options?: {
     expandable?: boolean;
   };
