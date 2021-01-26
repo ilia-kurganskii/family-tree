@@ -1,7 +1,7 @@
 import cloneDeep from "lodash/cloneDeep";
-import { FamilyNode } from "../models/FamilyNode.model";
-import { ProcessedFamilyNode } from "../models/ProcessedFamilyNode.model";
-import { collapseNode } from "./collapseNode";
+import { FamilyNode } from "../models/family-node.model";
+import { ProcessedFamilyNode } from "../models/processed-family-node.model";
+import { collapseNode } from "./collapse-node";
 
 export function initTree(root: FamilyNode): ProcessedFamilyNode {
   const newRoot: ProcessedFamilyNode = cloneDeep(root);

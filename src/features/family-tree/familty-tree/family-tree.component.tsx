@@ -1,7 +1,7 @@
 import * as d3 from "d3";
 import React from "react";
-import { ProcessedFamilyNode } from "../models/ProcessedFamilyNode.model";
-import "./FamilyTree.scss";
+import { ProcessedFamilyNode } from "../models/processed-family-node.model";
+import "./family-tree.scss";
 
 const NODE_WIDTH = 130;
 const NODE_HEIGHT = 130;
@@ -32,12 +32,12 @@ export default class FamilyTree extends React.PureComponent<FamilyTreeProps> {
     this.updateSvgSize = this.updateSvgSize.bind(this);
   }
 
-  componentDidMount() {
+  componentDidMount(): void {
     this.initSVG();
     this.updateD3(this.props);
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(): void {
     this.updateD3(this.props);
   }
 
@@ -167,7 +167,7 @@ export default class FamilyTree extends React.PureComponent<FamilyTreeProps> {
       .filter((d) => !!d.data.description)
       .append("span")
       .attr("class", "node_description typography__secondary")
-      .text((d) => d.data.description!);
+      .text((d) => d.data.description ?? "");
 
     // Render second parent
     const secondParent = nodeBlock
@@ -285,7 +285,7 @@ export default class FamilyTree extends React.PureComponent<FamilyTreeProps> {
       .remove();
   }
 
-  render() {
+  render(): React.ReactNode {
     return <div className={this.props.className} ref={this.ref} />;
   }
 }

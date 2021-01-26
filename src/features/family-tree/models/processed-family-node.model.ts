@@ -1,4 +1,4 @@
-import { FamilyNode } from "./FamilyNode.model";
+import { FamilyNode } from "./family-node.model";
 
 export interface ProcessedFamilyNode extends FamilyNode {
   expanded?: boolean;

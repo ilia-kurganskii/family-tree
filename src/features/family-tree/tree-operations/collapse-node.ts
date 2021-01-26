@@ -1,4 +1,4 @@
-import { ProcessedFamilyNode } from "../models/ProcessedFamilyNode.model";
+import { ProcessedFamilyNode } from "../models/processed-family-node.model";
 
 export function collapseNode(node: ProcessedFamilyNode): ProcessedFamilyNode {
   if (!node.children) {

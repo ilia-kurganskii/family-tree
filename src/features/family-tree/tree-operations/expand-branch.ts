@@ -1,6 +1,6 @@
-import { ProcessedFamilyNode } from "../models/ProcessedFamilyNode.model";
-import { expandNode } from "./expandNode";
-import { collapseNode } from "./collapseNode";
+import { ProcessedFamilyNode } from "../models/processed-family-node.model";
+import { expandNode } from "./expand-node";
+import { collapseNode } from "./collapse-node";
 
 export function expandBranch(
   root: ProcessedFamilyNode,

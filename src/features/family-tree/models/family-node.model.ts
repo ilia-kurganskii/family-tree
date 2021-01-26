@@ -1,4 +1,4 @@
-import { Image } from "./Image.model";
+import { Image } from "./image.model";
 
 export interface FamilyNode {
   id?: string;

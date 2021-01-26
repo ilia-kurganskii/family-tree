@@ -1,10 +1,10 @@
 import React, { useCallback, useState } from "react";
-import FamilyTree from "./features/familyTree/FamilyTree/FamilyTree.component";
-import { GordeevaMockData } from "./features/familyTree/FamilyTree/FamilyTree.mock";
-import { initTree } from "./features/familyTree/treeOperations/initTree";
-import { expandBranch } from "./features/familyTree/treeOperations/expandBranch";
-import "./App.scss";
-import Header from "./features/common/Header/Header.component";
+import FamilyTree from "./features/family-tree/familty-tree/family-tree.component";
+import { GordeevaMockData } from "./features/family-tree/familty-tree/family-tree.model.mock";
+import { initTree } from "./features/family-tree/tree-operations/init-tree";
+import { expandBranch } from "./features/family-tree/tree-operations/expand-branch";
+import "./app.scss";
+import Header from "./features/common/header/header.component";
 
 const init = initTree(GordeevaMockData);
 
