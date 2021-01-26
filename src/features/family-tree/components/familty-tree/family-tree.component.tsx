@@ -1,6 +1,6 @@
 import * as d3 from "d3";
 import React from "react";
-import { ProcessedFamilyNode } from "../models/processed-family-node.model";
+import { ProcessedFamilyNode } from "../../models/processed-family-node.model";
 import "./family-tree.scss";
 
 const NODE_WIDTH = 130;

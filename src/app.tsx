@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from "react";
-import FamilyTree from "./features/family-tree/familty-tree/family-tree.component";
-import { GordeevaMockData } from "./features/family-tree/familty-tree/family-tree.model.mock";
+import FamilyTree from "./features/family-tree/components/familty-tree/family-tree.component";
+import { GordeevaMockData } from "./features/family-tree/components/familty-tree/family-tree.model.mock";
 import { initTree } from "./features/family-tree/tree-operations/init-tree";
 import { expandBranch } from "./features/family-tree/tree-operations/expand-branch";
 import "./app.scss";
@@ -21,7 +21,6 @@ function App() {
   return (
     <>
       <Header />
-
       <main className="main">
         <h2 className="main_info typography__secondary">
           <span className="main_info_firstLine">

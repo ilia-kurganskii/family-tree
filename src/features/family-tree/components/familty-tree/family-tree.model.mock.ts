@@ -1,4 +1,4 @@
-import { FamilyNode } from "../models/family-node.model";
+import { FamilyNode } from "../../models/family-node.model";
 
 let id = 0;
 
