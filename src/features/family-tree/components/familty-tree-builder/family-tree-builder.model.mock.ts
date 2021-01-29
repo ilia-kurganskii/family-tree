@@ -1,8 +1,8 @@
-import { FamilyNode } from "../../models/family-node.model";
+import { FamilyNode } from "../../../../store/features/family-tree/models/family-node.model";
 
 let id = 0;
 
-export const GordeevaMockData: FamilyNode = {
+export const GordeevaMockData: any = {
   id: `${id++}`,
   name: "Павел Матора",
   description: "1850 c. Горбунки",

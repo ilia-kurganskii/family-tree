@@ -1,23 +1,9 @@
-import React, { useCallback, useState } from "react";
-import FamilyTree from "./features/family-tree/components/familty-tree/family-tree.component";
-import { GordeevaMockData } from "./features/family-tree/components/familty-tree/family-tree.model.mock";
-import { initTree } from "./features/family-tree/tree-operations/init-tree";
-import { expandBranch } from "./features/family-tree/tree-operations/expand-branch";
+import React from "react";
 import "./app.scss";
 import Header from "./features/common/header/header.component";
-
-const init = initTree(GordeevaMockData);
+import { FamilyTreeContainer } from "./features/family-tree/containers/family-tree/family-tree.container";
 
 function App() {
-  const [root, setRoot] = useState(init);
-
-  const expandBranchCallback = useCallback(
-    (id: string) => {
-      setRoot(expandBranch(root, id));
-    },
-    [root]
-  );
-
   return (
     <>
       <Header />
@@ -31,11 +17,7 @@ function App() {
           человеке напишите нам в «обратную связь», мы с удвольствием ответим и
           дополним.
         </h2>
-        <FamilyTree
-          className="main_familyTree"
-          root={root}
-          expandBranch={expandBranchCallback}
-        />
+        <FamilyTreeContainer />
       </main>
     </>
   );

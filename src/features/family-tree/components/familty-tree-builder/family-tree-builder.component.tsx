@@ -1,7 +1,7 @@
 import * as d3 from "d3";
 import React from "react";
-import { ProcessedFamilyNode } from "../../models/processed-family-node.model";
-import "./family-tree.scss";
+import "./family-tree-builder.scss";
+import { D3FamilyTreeNodeModel } from "../../models/d3-family-tree-node.model";
 
 const NODE_WIDTH = 130;
 const NODE_HEIGHT = 130;
@@ -15,14 +15,14 @@ export interface FamilyTreeProps {
   marginBottom?: number;
   marginTop?: number;
   className?: string;
-  expandBranch: (id: string) => void;
-  root: ProcessedFamilyNode;
+  onExpandBranch: (id: string) => void;
+  root: D3FamilyTreeNodeModel;
 }
 
-export default class FamilyTree extends React.PureComponent<FamilyTreeProps> {
+export default class FamilyTreeBuilderComponent extends React.PureComponent<FamilyTreeProps> {
   private ref = React.createRef<HTMLDivElement>();
   private svg!: d3.Selection<SVGSVGElement, unknown, null, undefined>;
-  private tree!: d3.TreeLayout<ProcessedFamilyNode>;
+  private tree!: d3.TreeLayout<D3FamilyTreeNodeModel>;
 
   constructor(props: FamilyTreeProps) {
     super(props);
@@ -42,19 +42,19 @@ export default class FamilyTree extends React.PureComponent<FamilyTreeProps> {
   }
 
   private onExpand(id: string) {
-    this.props.expandBranch(id);
+    this.props.onExpandBranch(id);
   }
 
   private initSVG() {
     this.svg = d3.select(this.ref.current).append("svg");
     this.tree = d3
-      .tree<ProcessedFamilyNode>()
+      .tree<D3FamilyTreeNodeModel>()
       .nodeSize([NODE_WIDTH + X_GAP, NODE_HEIGHT + Y_GAP]);
     this.svg.append("g");
   }
 
   private updateD3(props: FamilyTreeProps) {
-    const root = this.tree(d3.hierarchy<ProcessedFamilyNode>(props.root));
+    const root = this.tree(d3.hierarchy<D3FamilyTreeNodeModel>(props.root));
 
     const nodes = root.descendants();
     const links = root.links();
@@ -71,7 +71,7 @@ export default class FamilyTree extends React.PureComponent<FamilyTreeProps> {
    * @private
    */
   private updateSvgSize(
-    root: d3.HierarchyPointNode<ProcessedFamilyNode>
+    root: d3.HierarchyPointNode<D3FamilyTreeNodeModel>
   ): void {
     const {
       marginBottom = 10,
@@ -112,7 +112,7 @@ export default class FamilyTree extends React.PureComponent<FamilyTreeProps> {
    * @private
    */
   private updateNodes(
-    nodes: d3.HierarchyPointNode<ProcessedFamilyNode>[]
+    nodes: d3.HierarchyPointNode<D3FamilyTreeNodeModel>[]
   ): void {
     const node = this.svg.selectAll(".node-wrapper").data(nodes, (d: any) => {
       return d.data.id;
@@ -123,11 +123,13 @@ export default class FamilyTree extends React.PureComponent<FamilyTreeProps> {
     /**
      * Use foreignObject to render div in svg
      */
-    const nodeG = nodeEnter.append("g").style("opacity", 0);
+    const nodeG = nodeEnter
+      .append("g")
+      .attr("class", "node-wrapper")
+      .style("opacity", 0);
 
     const nodeBlock = nodeG
       .append("foreignObject")
-      .attr("class", "node-wrapper")
       .attr("x", (d) => d.x)
       .attr("y", (d) => d.y)
       .attr("width", NODE_WIDTH)
@@ -151,10 +153,6 @@ export default class FamilyTree extends React.PureComponent<FamilyTreeProps> {
         return d3.interpolateNumber(0, 1);
       })
       .duration(1000);
-
-    node
-      .select(".node")
-      .classed("node__withChildren", (d: any) => !!d.children);
 
     // Render name
     nodeBlock
@@ -191,12 +189,12 @@ export default class FamilyTree extends React.PureComponent<FamilyTreeProps> {
       .attr("class", "node_expand_button typography_secondary")
       .text("+")
       .classed("hidden", (d) => {
-        return !d.data.options?.expandable || !!d.data.expanded;
+        return !d.data.options?.expandable || d.data.expanded;
       })
       .on("click", (d, s) => s.data.id && this.onExpand(s.data.id));
 
     node.select("button").classed("hidden", (d) => {
-      return !d.data.options?.expandable || !!d.data.expanded;
+      return !d.data.options?.expandable || d.data.expanded;
     });
 
     node.exit().remove();
@@ -208,7 +206,7 @@ export default class FamilyTree extends React.PureComponent<FamilyTreeProps> {
    * @private
    */
   private updateLinks(
-    links: d3.HierarchyPointLink<ProcessedFamilyNode>[]
+    links: d3.HierarchyPointLink<D3FamilyTreeNodeModel>[]
   ): void {
     const link = this.svg.selectAll("path.link").data(links, (d: any) => {
       return d.target.data.id;
