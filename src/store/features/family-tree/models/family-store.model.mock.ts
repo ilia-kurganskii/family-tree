@@ -860,6 +860,9 @@ export const mockNodes: FamilyNode[] = [
     name: "Петр",
     description: undefined,
     firstParentId: "0",
+    options: {
+      expandable: true,
+    },
     secondParentId: undefined,
     childrenIds: ["83"],
   },
