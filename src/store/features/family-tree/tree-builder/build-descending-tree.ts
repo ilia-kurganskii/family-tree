@@ -17,10 +17,10 @@ export function buildDescendingFamilyTree(
         .filter(Boolean);
     }
     if (newNode.firstParentId) {
-      newNode.firstParent = nodeMap[rootId];
+      newNode.firstParent = nodeMap[newNode.firstParentId];
     }
     if (newNode.secondParentId) {
-      newNode.secondParent = nodeMap[rootId];
+      newNode.secondParent = nodeMap[newNode.secondParentId];
     }
     return newNode;
   }
