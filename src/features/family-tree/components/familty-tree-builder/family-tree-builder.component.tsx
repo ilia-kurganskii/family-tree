@@ -2,12 +2,18 @@ import * as d3 from "d3";
 import React from "react";
 import "./family-tree-builder.scss";
 import { D3FamilyTreeNodeModel } from "../../models/d3-family-tree-node.model";
-
-const NODE_WIDTH = 130;
-const NODE_HEIGHT = 130;
-
-const X_GAP = 10;
-const Y_GAP = 40;
+import {
+  NODE_HEIGHT,
+  NODE_WIDTH,
+  X_GAP,
+  Y_GAP,
+} from "./family-tree-builder.const";
+import { addNewLinks, removeLinks, updateLinks } from "./helpers/link-helper";
+import {
+  addNewNodes,
+  removeOldNodes,
+  updateCurrentNodes,
+} from "./helpers/node-helper";
 
 export interface FamilyTreeProps {
   marginLeft?: number;
@@ -120,84 +126,9 @@ export default class FamilyTreeBuilderComponent extends React.PureComponent<Fami
 
     const nodeEnter = node.enter();
 
-    /**
-     * Use foreignObject to render div in svg
-     */
-    const nodeG = nodeEnter
-      .append("g")
-      .attr("class", "node-wrapper")
-      .style("opacity", 0);
-
-    const nodeBlock = nodeG
-      .append("foreignObject")
-      .attr("x", (d) => d.x)
-      .attr("y", (d) => d.y)
-      .attr("width", NODE_WIDTH)
-      .attr("height", NODE_HEIGHT)
-      .append("xhtml:div")
-      .attr("class", "node")
-      .classed("node__withChildren", (d) => !!d.children)
-      .attr("xmlns", "http://www.w3.org/1999/xhtml");
-
-    let minDepth = Number.MAX_VALUE;
-    nodeEnter.each((node) => {
-      minDepth = Math.min(node.depth, minDepth);
-    });
-
-    nodeG
-      .transition()
-      .delay((d) => (d.depth - minDepth) * 800 + 200)
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      .styleTween("opacity", function () {
-        return d3.interpolateNumber(0, 1);
-      })
-      .duration(1000);
-
-    // Render name
-    nodeBlock
-      .append("span")
-      .attr("class", "node_name typography__primary")
-      .text((d) => d.data.name);
-
-    // Render description
-    nodeBlock
-      .filter((d) => !!d.data.description)
-      .append("span")
-      .attr("class", "node_description typography__secondary")
-      .text((d) => d.data.description ?? "");
-
-    // Render second parent
-    const secondParent = nodeBlock
-      .filter((d) => !!d.data.secondParent)
-      .append("div")
-      .attr("class", "node_second_parent");
-
-    secondParent
-      .append("span")
-      .attr("class", "node_second_parent_name typography__primary")
-      .text((d) => d.data.secondParent?.name ?? "");
-
-    secondParent
-      .filter((d) => !!d.data.secondParent?.description)
-      .append("span")
-      .attr("class", "node_second_parent_description typography__secondary")
-      .text((d) => d.data.secondParent?.description ?? "");
-
-    nodeBlock
-      .append("button")
-      .attr("class", "node_expand_button typography_secondary")
-      .text("+")
-      .classed("hidden", (d) => {
-        return !d.data.options?.expandable || d.data.expanded;
-      })
-      .on("click", (d, s) => s.data.id && this.onExpand(s.data.id));
-
-    node.select("button").classed("hidden", (d) => {
-      return !d.data.options?.expandable || d.data.expanded;
-    });
-
-    node.exit().remove();
+    addNewNodes(nodeEnter, this.onExpand);
+    updateCurrentNodes(node);
+    removeOldNodes(node);
   }
 
   /**
@@ -213,74 +144,9 @@ export default class FamilyTreeBuilderComponent extends React.PureComponent<Fami
     });
 
     const linkEnter = link.enter();
-
-    /**
-     * M - move to
-     * v - vertical line
-     * h - horizontal line
-     */
-    const newLink = linkEnter
-      .insert("path", "g")
-      .attr("class", "link")
-      .attr("visibility", "hidden")
-      .attr(
-        "d",
-        (d) =>
-          `
-             M${d.source.x + NODE_WIDTH / 2},${d.source.y}
-             v${d.target.y - d.source.y - 5}
-             h${d.target.x - d.source.x}
-           `
-      );
-
-    const tweenDash = function () {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore this === path element
-      const length = this.getTotalLength();
-      const interpolateFunc = d3.interpolateString(
-        "0," + length,
-        length + "," + length
-      );
-      return function (time: number) {
-        return interpolateFunc(time);
-      };
-    };
-
-    const tweenDashReverse = function () {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore this === path element
-      const length = this.getTotalLength();
-      const interpolateFunc = d3.interpolateString(
-        length + "," + length,
-        "0," + length
-      );
-      return function (time: number) {
-        return interpolateFunc(time);
-      };
-    };
-
-    let minDepth = Number.MAX_VALUE;
-    linkEnter.each((node) => {
-      minDepth = Math.min(node.source.depth, minDepth);
-    });
-
-    newLink
-      .transition()
-      .duration(1000)
-      .delay((d) =>
-        d.source.depth === 0 ? 800 : (d.source.depth - minDepth) * 800
-      )
-      .attr("visibility", "visible")
-      .attrTween("stroke-dasharray", tweenDash);
-
-    // remove old links
-    link
-      .exit()
-      .transition()
-      .duration(500)
-      .attr("visibility", "visible")
-      .attrTween("stroke-dasharray", tweenDashReverse)
-      .remove();
+    addNewLinks(linkEnter);
+    updateLinks(link);
+    removeLinks(link);
   }
 
   render(): React.ReactNode {

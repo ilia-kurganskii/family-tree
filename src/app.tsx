@@ -17,7 +17,7 @@ function App() {
           человеке напишите нам в «обратную связь», мы с удвольствием ответим и
           дополним.
         </h2>
-        <FamilyTreeContainer />
+        <FamilyTreeContainer className="main_familyTree" />
       </main>
     </>
   );

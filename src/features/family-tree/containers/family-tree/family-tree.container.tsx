@@ -11,9 +11,14 @@ import { filledFamilyNodeToD3FamilyNode } from "./family-tree.dto";
 interface FamilyTreeProps {
   tree: D3FamilyTreeNodeModel | null;
   toggleNode: (nodeId: string) => void;
+  className?: string;
 }
 
-function FamilyTreeContainerComponent({ toggleNode, tree }: FamilyTreeProps) {
+function FamilyTreeContainerComponent({
+  toggleNode,
+  tree,
+  className,
+}: FamilyTreeProps) {
   const expandBranchCallback = useCallback(
     (id: string) => {
       toggleNode(id);
@@ -27,6 +32,7 @@ function FamilyTreeContainerComponent({ toggleNode, tree }: FamilyTreeProps) {
 
   return (
     <FamilyTreeBuilderComponent
+      className={className}
       onExpandBranch={expandBranchCallback}
       root={tree}
     />
