@@ -2,16 +2,19 @@ import { Image } from "./image.model";
 
 export interface FamilyNode {
   id: string;
-  name: string;
-  description?: string;
+  firstname: string;
+  lastname?: string | null;
+  description?: string | null;
   details?: {
     images: Image[];
     markdown: string;
   };
-  firstParentId?: string | null;
-  secondParentId?: string | null;
   options?: {
     expandable?: boolean;
   };
+  parentIds: string[];
   childrenIds: string[];
+  createdAt: string;
+  updatedAt: string;
+  treeId: string;
 }

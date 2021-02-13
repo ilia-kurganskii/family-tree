@@ -16,11 +16,11 @@ export function buildDescendingFamilyTree(
         )
         .filter(Boolean);
     }
-    if (newNode.firstParentId) {
-      newNode.firstParent = nodeMap[newNode.firstParentId];
+    if (newNode.parentIds.length > 0) {
+      newNode.firstParent = nodeMap[newNode.parentIds[0]];
     }
-    if (newNode.secondParentId) {
-      newNode.secondParent = nodeMap[newNode.secondParentId];
+    if (newNode.parentIds.length > 1) {
+      newNode.secondParent = nodeMap[newNode.parentIds[1]];
     }
     return newNode;
   }

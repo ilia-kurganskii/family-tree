@@ -59,7 +59,7 @@ export function addNewNodes(
   nodeBlock
     .append("span")
     .attr("class", "node_name typography__primary")
-    .text((d) => d.data.name);
+    .text((d) => d.data.firstname);
 
   // Render description
   nodeBlock
@@ -77,7 +77,7 @@ export function addNewNodes(
   secondParent
     .append("span")
     .attr("class", "node_second_parent_name typography__primary")
-    .text((d) => d.data.secondParent?.name ?? "");
+    .text((d) => d.data.secondParent?.firstname ?? "");
 
   secondParent
     .filter((d) => !!d.data.secondParent?.description)

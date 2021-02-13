@@ -1,5 +1,5 @@
 import { createSelector } from "@reduxjs/toolkit";
-import { RootStoreModel } from "../root.model";
+import { RootStoreModel } from "../../root.model";
 import { nodesAdapter } from "./family-tree.reducer";
 import { buildDescendingFamilyTree } from "./tree-builder/build-descending-tree";
 

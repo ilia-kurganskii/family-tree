@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Action, Dispatch } from "redux";
 import { FamilyTreeActions } from "../../../../store/features/family-tree/family-tree.actions";
 import { FamilyTreeSelectors } from "../../../../store/features/family-tree/family-tree.selectors";
-import { RootStoreModel } from "../../../../store/features/root.model";
+import { RootStoreModel } from "../../../../store/root.model";
 import FamilyTreeBuilderComponent from "../../components/familty-tree-builder/family-tree-builder.component";
 import { D3FamilyTreeNodeModel } from "../../models/d3-family-tree-node.model";
 import { filledFamilyNodeToD3FamilyNode } from "./family-tree.dto";

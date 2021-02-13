@@ -37,8 +37,8 @@ export const familyTreeReducer = createReducer<FamilyStoreModel>(
           const idsForRemove: string[] = [];
 
           //for DescendingFamilyTree
-          if (node && node.firstParentId) {
-            const parent = state.nodes.entities[node.firstParentId];
+          if (node && node.parentIds.length > 0) {
+            const parent = state.nodes.entities[node.parentIds[0]];
             if (parent) {
               idsForRemove.push(...parent.childrenIds);
             }
