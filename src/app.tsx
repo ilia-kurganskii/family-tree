@@ -1,25 +1,23 @@
 import React from "react";
+import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import "./app.scss";
-import Header from "./features/common/header/header.component";
-import { FamilyTreeContainer } from "./features/family-tree/containers/family-tree/family-tree.container";
+import { LoginPageContainer } from "./features/auth/pages/login/login.container";
+import ProtectedRoute from "./features/common/protected-route/protected-route.component";
+import TreeDetailsComponent from "./features/family-tree/pages/tree-details/tree-details.component";
 
 function App() {
   return (
-    <>
-      <Header />
-      <main className="main">
-        <h2 className="main_info typography__secondary">
-          <span className="main_info_firstLine">
-            Здравствуйте, Если вы сюда попали, значит это ваша родословная.
-          </span>
-          Мы собираем информацию о нашем древо. Если вы хотите дополнить,
-          прислать фотографии, написать пару строчек о себе или о близком
-          человеке напишите нам в «обратную связь», мы с удвольствием ответим и
-          дополним.
-        </h2>
-        <FamilyTreeContainer className="main_familyTree" />
-      </main>
-    </>
+    <BrowserRouter>
+      <Switch>
+        <Route exact path="/login">
+          <LoginPageContainer />
+        </Route>
+        <ProtectedRoute exact path="/trees/:id">
+          <TreeDetailsComponent />
+        </ProtectedRoute>
+        <Redirect to="/trees" />
+      </Switch>
+    </BrowserRouter>
   );
 }
 

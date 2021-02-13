@@ -3,7 +3,6 @@ import { FamilyTreeActions } from "./family-tree.actions";
 import { FamilyNode } from "./models/family-node.model";
 import { FamilyStoreModel } from "./models/family-store.model";
 import { mockNodes } from "./models/family-store.model.mock";
-import { buildDescendingFamilyTree } from "./tree-builder/build-descending-tree";
 
 export const nodesAdapter = createEntityAdapter<FamilyNode>({
   selectId: (node) => node.id,
@@ -11,7 +10,7 @@ export const nodesAdapter = createEntityAdapter<FamilyNode>({
 
 const initState: FamilyStoreModel = {
   nodes: nodesAdapter.addMany(nodesAdapter.getInitialState(), mockNodes),
-  selectedNodeId: "0",
+  selectedNodeId: "ckl43z76h0000qdnaa5xycvs8",
   expandedIds: [],
 };
 
