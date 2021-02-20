@@ -1,19 +1,30 @@
+import { unwrapResult } from "@reduxjs/toolkit";
 import React, { useCallback } from "react";
 import { connect } from "react-redux";
-import { Action, Dispatch } from "redux";
-import { AuthActions } from "../../../../store/features/auth/auth.actions";
-import { FamilyTreeActions } from "../../../../store/features/family-tree/family-tree.actions";
+import { AuthAsyncActions } from "../../../../store/features/auth/auth.actions.thunk";
+import { UserModel } from "../../../../store/features/auth/models/user.model";
+import { AppDispatch } from "../../../../store/root.store";
 import { LoginPayload } from "./login.types";
+import { useHistory } from "react-router-dom";
 
 interface LoginPageProps {
-  onLogin: (payload: LoginPayload) => void;
+  login: (payload: LoginPayload) => Promise<UserModel>;
 }
 
 function LoginPageComponent(props: LoginPageProps) {
-  const onLoginClick = useCallback(
-    () => props.onLogin({ email: "test@test.te", password: "password" }),
-    [props.onLogin]
-  );
+  const history = useHistory();
+  const onLoginClick = useCallback(async () => {
+    try {
+      const user = await props.login({
+        email: "test@test.te",
+        password: "password",
+      });
+      console.log("Login success", user);
+      history.push("/trees");
+    } catch (e) {
+      console.log(e);
+    }
+  }, [props.login]);
 
   return (
     <div>
@@ -22,14 +33,14 @@ function LoginPageComponent(props: LoginPageProps) {
   );
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
-  onLogin: (payload: LoginPayload) =>
+const mapDispatchToProps = (dispatch: AppDispatch) => ({
+  login: (payload: LoginPayload) =>
     dispatch(
-      AuthActions.loginUser({
+      AuthAsyncActions.loginUser({
         email: payload.email,
         password: payload.password,
       })
-    ),
+    ).then(unwrapResult),
 });
 
 export const LoginPageContainer = connect(

@@ -10,3 +10,5 @@ export const rootStore = configureStore<RootStoreModel>({
   },
   devTools: process.env.NODE_ENV === "development",
 });
+
+export type AppDispatch = typeof rootStore.dispatch;
