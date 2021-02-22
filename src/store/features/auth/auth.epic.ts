@@ -8,9 +8,9 @@ import {
   switchMap,
   tap,
 } from "rxjs/operators";
-import { AuthService } from "../../../features/auth/services/auth/auth.service";
-import { BindingTypes } from "../../../features/common/binding/binding.types";
-import { ofType } from "../../../features/common/store/operators";
+import { AuthService } from "@features/auth/services/auth/auth.service";
+import { BindingTypes } from "@features/common/binding/binding.types";
+import { ofType } from "@features/common/store/operators";
 import { AuthActions } from "./auth.actions";
 import { History } from "history";
 

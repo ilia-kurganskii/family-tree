@@ -1,8 +1,8 @@
 import { inject, injectable } from "inversify";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
-import { UserModel } from "../../../../store/features/auth/models/user.model";
-import { HttpService } from "../../../common/http/http.service";
+import { UserModel } from "@store/features/auth/models/user.model";
+import { HttpService } from "@features/common/http/http.service";
 import { LoginRequestDto, LoginResponseDto } from "./dto/login.dto";
 
 @injectable()
