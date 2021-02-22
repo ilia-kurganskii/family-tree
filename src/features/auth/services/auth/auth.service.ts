@@ -1,20 +1,25 @@
+import { inject, injectable } from "inversify";
+import { Observable } from "rxjs";
+import { map } from "rxjs/operators";
 import { UserModel } from "../../../../store/features/auth/models/user.model";
-import { HttpService, httpService } from "../../../common/http/http.service";
+import { HttpService } from "../../../common/http/http.service";
 import { LoginRequestDto, LoginResponseDto } from "./dto/login.dto";
 
+@injectable()
 export class AuthService {
-  constructor(private readonly httpService: HttpService) {}
+  @inject(HttpService)
+  private readonly httpService!: HttpService;
 
-  public async login(payload: LoginRequestDto): Promise<UserModel> {
-    const data = await this.httpService.post<LoginResponseDto, LoginRequestDto>(
-      "/auth/login",
-      {
+  public login(payload: LoginRequestDto): Observable<UserModel> {
+    return this.httpService
+      .post<LoginResponseDto, LoginRequestDto>("/auth/login", {
         email: payload.email,
         password: payload.password,
-      }
-    );
-    return data.user;
+      })
+      .pipe(
+        map((data) => {
+          return data.user;
+        })
+      );
   }
 }
-
-export const authService = new AuthService(httpService);

@@ -1,5 +1,5 @@
 import { createReducer } from "@reduxjs/toolkit";
-import { AuthAsyncActions } from "./auth.actions.thunk";
+import { AuthActions } from "./auth.actions";
 import { AuthStoreModel } from "./models/auth-store.model";
 
 const initState: AuthStoreModel = {
@@ -10,17 +10,17 @@ const initState: AuthStoreModel = {
 export const authReducer = createReducer<AuthStoreModel>(
   initState,
   (builder) => {
-    builder.addCase(AuthAsyncActions.loginUser.pending, (state) => ({
+    builder.addCase(AuthActions.loginUser, (state) => ({
       ...state,
       userId: undefined,
       isLogging: true,
     }));
-    builder.addCase(AuthAsyncActions.loginUser.fulfilled, (state, action) => ({
+    builder.addCase(AuthActions.loginUserSuccess, (state, action) => ({
       ...state,
-      userId: action.payload.id,
+      userId: action.payload.userId,
       isLogging: false,
     }));
-    builder.addCase(AuthAsyncActions.loginUser.rejected, (state) => ({
+    builder.addCase(AuthActions.loginUserFailed, (state) => ({
       ...state,
       userId: null,
       isLogging: false,

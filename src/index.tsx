@@ -1,16 +1,25 @@
+import { Store } from "@reduxjs/toolkit";
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
-import App from "./app";
-import reportWebVitals from "./reportWebVitals";
-import { rootStore } from "./store/root.store";
 import { Provider } from "react-redux";
+import { Router } from "react-router-dom";
+import App from "./app";
+import { BindingTypes } from "./features/common/binding/binding.types";
+import "./index.css";
+import { container } from "./inversify.config";
+import reportWebVitals from "./reportWebVitals";
+import { History } from "history";
+
+const rootStore = container.get<Store>(BindingTypes.ROOT_STORE);
+const history = container.get<History>(BindingTypes.HISTORY);
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={rootStore}>
-      <App />
-    </Provider>
+    <Router history={history}>
+      <Provider store={rootStore}>
+        <App />
+      </Provider>
+    </Router>
   </React.StrictMode>,
   document.getElementById("root")
 );
