@@ -2,8 +2,11 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-export const environment = {
+import { EnvironmentModel } from '../app/features/shared/models/environment.model';
+
+export const environment: EnvironmentModel = {
   production: false,
+  backendHost: 'https://family-tree-api-v1-staging.herokuapp.com',
 };
 
 /*

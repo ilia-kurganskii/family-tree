@@ -1,0 +1,48 @@
+<div class="login-page">
+  <mat-card class="login-page-card">
+    <mat-card-title class="login-page-card__title mat-primary"
+      >Login</mat-card-title
+    >
+    <mat-card-content>
+      <form
+        class="login-form"
+        id="loginForm"
+        [formGroup]="formControl"
+        (ngSubmit)="submit()"
+      >
+        <mat-form-field class="login-form__field">
+          <input
+            class="login-form__name"
+            type="email"
+            matInput
+            placeholder="Email"
+            formControlName="email"
+          />
+          <mat-error
+            *ngIf="
+              emailControl.hasError('email') &&
+              !emailControl.hasError('required')
+            "
+          >
+            Please enter a valid email address
+          </mat-error>
+          <mat-error *ngIf="formControl.hasError('required')">
+            Email is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            type="password"
+            matInput
+            placeholder="Password"
+            formControlName="password"
+          />
+        </mat-form-field>
+        <mat-error *ngIf="loginError$ | async">
+          {{ (loginError$ | async)?.message }}
+        </mat-error>
+        <button form="loginForm" type="submit" mat-button>Login</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
