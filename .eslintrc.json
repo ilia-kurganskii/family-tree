@@ -38,6 +38,9 @@
             "prefix": "ft",
             "style": "camelCase"
           }
+        ],
+        "prefer-arrow/prefer-arrow-functions": [
+          "warn"
         ]
       }
     },

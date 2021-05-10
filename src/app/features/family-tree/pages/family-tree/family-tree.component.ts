@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SAMPLE } from '../../components/family-tree-chart/models/family-tree-builder.model.mock';
 
 @Component({
   selector: 'ft-family-tree',
@@ -6,7 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./family-tree.component.scss'],
 })
 export class FamilyTreeComponent implements OnInit {
-  constructor() {}
+  mock = SAMPLE;
+
+  onstructor() {}
 
   ngOnInit(): void {}
 }
