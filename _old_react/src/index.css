@@ -2,15 +2,15 @@
 
 @font-face {
   font-family: "PlayfairDisplay";
-  src: url("./assets/fonts/PlayfairDisplay.ttf") format("truetype-variations"),
-    url("./assets/fonts/PlayfairDisplay.ttf") format("truetype");
+  src: url("assets/fonts/PlayfairDisplay.ttf") format("truetype-variations"),
+    url("assets/fonts/PlayfairDisplay.ttf") format("truetype");
   font-weight: 100 1000;
   font-stretch: 25% 151%;
 }
 
 @font-face {
   font-family: "PoiretOne";
-  src: url("./assets/fonts/PoiretOne-Regular.ttf");
+  src: url("assets/fonts/PoiretOne-Regular.ttf");
 }
 
 :root {

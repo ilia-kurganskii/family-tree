@@ -1,9 +1,9 @@
 import { configureStore, Store } from "@reduxjs/toolkit";
 import { interfaces } from "inversify";
 import { createEpicMiddleware, Epic } from "redux-observable";
-import { BindingTypes } from "@features/common/binding/binding.types";
-import { authReducer } from "@store/features/auth/auth.reducer";
-import { familyTreeReducer } from "@store/features/family-tree/family-tree.reducer";
+import { BindingTypes } from "_old_react/src/features/common/binding/binding.types";
+import { authReducer } from "_old_react/src/store/features/auth/auth.reducer";
+import { familyTreeReducer } from "_old_react/src/store/features/family-tree/family-tree.reducer";
 
 export function rootStoreFactory(context: interfaces.Context): Store {
   const epicMiddleware = createEpicMiddleware();

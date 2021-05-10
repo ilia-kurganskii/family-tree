@@ -1,4 +1,4 @@
-import { UserModel } from "@store/features/auth/models/user.model";
+import { UserModel } from "_old_react/src/store/features/auth/models/user.model";
 
 export interface LoginRequestDto {
   email: string;

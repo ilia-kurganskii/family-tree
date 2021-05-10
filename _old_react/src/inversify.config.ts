@@ -2,12 +2,12 @@ import "reflect-metadata";
 import { Store } from "@reduxjs/toolkit";
 import { Container } from "inversify";
 import { Epic } from "redux-observable";
-import { AuthService } from "@features/auth/services/auth/auth.service";
-import { BindingTypes } from "@features/common/binding/binding.types";
-import { HttpService } from "@features/common/http/http.service";
-import { AuthEpics } from "@store/features/auth/auth.epic";
-import { rootEpicFactory } from "@store/root.epic";
-import { rootStoreFactory } from "@store/root.store";
+import { AuthService } from "_old_react/src/features/auth/services/auth/auth.service";
+import { BindingTypes } from "_old_react/src/features/common/binding/binding.types";
+import { HttpService } from "_old_react/src/features/common/http/http.service";
+import { AuthEpics } from "_old_react/src/store/features/auth/auth.epic";
+import { rootEpicFactory } from "_old_react/src/store/root.epic";
+import { rootStoreFactory } from "_old_react/src/store/root.store";
 import { createBrowserHistory } from "history";
 
 const container = new Container();
