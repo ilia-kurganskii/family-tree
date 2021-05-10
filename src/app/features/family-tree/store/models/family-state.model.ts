@@ -1,6 +1,7 @@
 import { FamilyNode } from './family-node.model';
 
-export interface FamilyStoreModel {
+export interface FamilyStateModel {
+  nodes: FamilyNode[];
   selectedNodeId: string | null;
   expandedIds: string[];
 }
