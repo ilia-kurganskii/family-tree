@@ -11,12 +11,20 @@ import { AuthModule } from './features/auth/auth.module';
 import { ENVIRONMENT } from './app.const';
 import { AuthService } from './features/auth/services/auth.service';
 import { appInitializer } from './app.initializer';
+import {
+  TuiDialogModule,
+  TuiNotificationsModule,
+  TuiRootModule,
+} from '@taiga-ui/core';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    TuiRootModule,
+    TuiNotificationsModule,
+    TuiDialogModule,
     BrowserAnimationsModule,
     NgxsModule.forRoot([]),
     NgxsReduxDevtoolsPluginModule.forRoot({

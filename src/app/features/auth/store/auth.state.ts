@@ -12,6 +12,7 @@ import { BackendErrorModel } from '../../shared/models/backend-error.model';
   defaults: {
     isAuthenticate: false,
     username: null,
+    isLoading: false,
   },
 })
 @Injectable()
@@ -24,6 +25,11 @@ export class AuthState {
   }
 
   @Selector()
+  static isLoading(state: AuthStateModel): boolean {
+    return state.isLoading;
+  }
+
+  @Selector()
   static loginError(state: AuthStateModel): BackendErrorModel | undefined {
     return state.error;
   }
@@ -32,16 +38,20 @@ export class AuthState {
   login(ctx: StateContext<AuthStateModel>, action: AuthActions.LoginByEmail) {
     ctx.patchState({
       error: undefined,
+      isLoading: true,
     });
     return this.authService.loginByEmail(action.payload).pipe(
       tap((result) => {
         ctx.patchState({
           isAuthenticate: true,
           username: result.username,
+          isLoading: false,
         });
       }),
       catchError((error) => {
         ctx.patchState({
+          isAuthenticate: false,
+          isLoading: false,
           error,
         });
         return of('');
@@ -64,7 +74,7 @@ export class AuthState {
   logout(ctx: StateContext<AuthStateModel>) {
     return this.authService.logout().pipe(
       tap(() => {
-        ctx.setState({
+        ctx.patchState({
           isAuthenticate: false,
           username: null,
         });

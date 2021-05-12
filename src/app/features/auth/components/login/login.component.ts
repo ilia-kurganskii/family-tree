@@ -1,30 +1,51 @@
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Actions, ofActionSuccessful, Store } from '@ngxs/store';
+import {
+  Actions,
+  ofActionDispatched,
+  ofActionSuccessful,
+  Select,
+  Selector,
+  Store,
+} from '@ngxs/store';
 import { AuthActions } from '../../store/auth.actions';
 import { AuthState } from '../../store/auth.state';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { takeUntil, withLatestFrom } from 'rxjs/operators';
+import { map, takeUntil, withLatestFrom } from 'rxjs/operators';
+import { TUI_VALIDATION_ERRORS } from '@taiga-ui/kit';
+import { TuiValidationError } from '@taiga-ui/cdk';
 
 @Component({
   selector: 'ft-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
   encapsulation: ViewEncapsulation.None,
+  providers: [
+    {
+      provide: TUI_VALIDATION_ERRORS,
+      useValue: {
+        required: 'This is required field',
+        email: 'Please use email',
+      },
+    },
+  ],
 })
 export class LoginComponent implements OnInit, OnDestroy {
+  @Select(AuthState.isLoading)
+  isLoading$!: Observable<boolean>;
+
+  loginError$!: Observable<TuiValidationError | null>;
+
   emailControl = new FormControl('email@gmail.com', [
-    Validators.required,
     Validators.email,
+    Validators.required,
   ]);
 
-  formControl: FormGroup = new FormGroup({
+  loginForm: FormGroup = new FormGroup({
     email: this.emailControl,
-    password: new FormControl('pa$word1'),
+    password: new FormControl('pa$word1', [Validators.required]),
   });
-
-  loginError$ = this.store.select(AuthState.loginError);
 
   private ngUnsubscribe = new Subject();
 
@@ -35,7 +56,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     private readonly route: ActivatedRoute
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.actions$
       .pipe(
         ofActionSuccessful(AuthActions.LoginByEmail),
@@ -46,14 +67,25 @@ export class LoginComponent implements OnInit, OnDestroy {
         const returnUrl: string = queryParams.returnUrl ?? '/tree';
         this.router.navigate([returnUrl]);
       });
+
+    this.loginError$ = this.store
+      .select(AuthState.loginError)
+      .pipe(
+        map((errorMessage) =>
+          errorMessage ? new TuiValidationError(errorMessage.message[0]) : null
+        )
+      );
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
   }
 
-  submit() {
-    this.store.dispatch(new AuthActions.LoginByEmail(this.formControl.value));
+  login(): void {
+    if (!this.loginForm.valid) {
+      return;
+    }
+    this.store.dispatch(new AuthActions.LoginByEmail(this.loginForm.value));
   }
 }

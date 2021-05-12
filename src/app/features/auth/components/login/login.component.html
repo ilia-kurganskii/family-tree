@@ -1,48 +1,48 @@
-<div class="login-page">
-  <mat-card class="login-page-card">
-    <mat-card-title class="login-page-card__title mat-primary"
-      >Login</mat-card-title
+<div class="tui-container tui-container_fixed tui-space_top-10">
+  <div class="tui-container tui-col_8">
+    <form
+      [formGroup]="loginForm"
+      (ngSubmit)="login()"
+      class="login__form tui-row tui-row_sme"
     >
-    <mat-card-content>
-      <form
-        class="login-form"
-        id="loginForm"
-        [formGroup]="formControl"
-        (ngSubmit)="submit()"
-      >
-        <mat-form-field class="login-form__field">
-          <input
-            class="login-form__name"
-            type="email"
-            matInput
-            placeholder="Email"
+      <div class="tui-col_12">
+        <h3 class="tui-form__header tui-form__header_margin-top_none">Login</h3>
+        <div class="tui-form__row">
+          <tui-input
+            tuiTextfieldExampleText="user@email.com"
             formControlName="email"
-          />
-          <mat-error
-            *ngIf="
-              emailControl.hasError('email') &&
-              !emailControl.hasError('required')
-            "
+            tuiHintContent="Email"
+            i18n
           >
-            Please enter a valid email address
-          </mat-error>
-          <mat-error *ngIf="formControl.hasError('required')">
-            Email is <strong>required</strong>
-          </mat-error>
-        </mat-form-field>
-        <mat-form-field>
-          <input
-            type="password"
-            matInput
-            placeholder="Password"
+            Email
+          </tui-input>
+          <tui-field-error formControlName="email"></tui-field-error>
+        </div>
+        <div class="tui-form__row">
+          <tui-input-password
+            tuiTextfieldExampleText="Placeholder"
             formControlName="password"
-          />
-        </mat-form-field>
-        <mat-error *ngIf="loginError$ | async">
-          {{ (loginError$ | async)?.message }}
-        </mat-error>
-        <button form="loginForm" type="submit" mat-button>Login</button>
-      </form>
-    </mat-card-content>
-  </mat-card>
+            i18n
+          >
+            Password
+          </tui-input-password>
+          <tui-field-error formControlName="password"></tui-field-error>
+        </div>
+
+        <div class="tui-form__buttons">
+          <button
+            tuiButton
+            class="tui-form__button"
+            size="m"
+            type="submit"
+            [showLoader]="(isLoading$ | async) === true"
+            i18n
+          >
+            Login
+          </button>
+        </div>
+        <tui-error [error]="loginError$ | async"></tui-error>
+      </div>
+    </form>
+  </div>
 </div>

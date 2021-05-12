@@ -7,16 +7,11 @@ import { LoginComponent } from './components/login/login.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptor } from './interseptors/auth.interceptor';
 import { AuthGuard } from './guards/auth.guard';
-import { MatCardModule } from '@angular/material/card';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatButtonModule } from '@angular/material/button';
-import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatGridListModule } from '@angular/material/grid-list';
+import { LoginModule } from './components/login/login.module';
 
 @NgModule({
   exports: [LoginComponent],
-  declarations: [LoginComponent],
   providers: [
     AuthService,
     AuthState,
@@ -25,14 +20,10 @@ import { MatGridListModule } from '@angular/material/grid-list';
   ],
   imports: [
     CommonModule,
+    LoginModule,
     NgxsModule.forFeature([AuthState]),
     HttpClientModule,
-    MatCardModule,
-    MatFormFieldModule,
-    MatButtonModule,
-    MatInputModule,
     ReactiveFormsModule,
-    MatGridListModule,
   ],
 })
 export class AuthModule {}
