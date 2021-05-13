@@ -5,5 +5,10 @@
       <td class="tui-table__th">Name</td>
     </tr>
   </thead>
-  <tbody></tbody>
+  <tbody>
+    <tr class="tui-table__tr" *ngFor="let tree of trees$ | async">
+      <td class="tui-table__td">{{ tree.id }}</td>
+      <td class="tui-table__td">{{ tree.name }}</td>
+    </tr>
+  </tbody>
 </table>

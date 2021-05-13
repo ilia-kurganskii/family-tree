@@ -6,8 +6,10 @@ import { FamilyTreeChartComponent } from './components/family-tree-chart/family-
 import { NgxsModule } from '@ngxs/store';
 import { FamilyNodeState } from './store/family-node.state';
 import { TuiLetModule } from '@taiga-ui/cdk';
+import { FamilyNodeService } from './services/family-node/family-node.service';
 
 @NgModule({
+  providers: [FamilyNodeService],
   declarations: [FamilyNodesComponent, FamilyTreeChartComponent],
   imports: [
     FamilyNodesRoutingModule,

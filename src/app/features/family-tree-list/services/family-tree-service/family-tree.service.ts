@@ -20,7 +20,8 @@ export class FamilyTreeService {
 
   loadTrees(): Observable<ResponseTreeListModel> {
     return this.http.get<ResponseTreeListModel>(
-      `${this.host}/family-tree/trees`
+      `${this.host}/family-tree/trees`,
+      { withCredentials: true }
     );
   }
 

@@ -17,6 +17,7 @@ const routes: Routes = [
       ),
     canActivate: [AuthGuard],
   },
+  { path: '', redirectTo: '/trees', pathMatch: 'full' },
 ];
 
 @NgModule({

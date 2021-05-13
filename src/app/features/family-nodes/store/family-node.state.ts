@@ -4,13 +4,13 @@ import { FamilyNodeStateModel } from './models/family-node-state.model';
 import { FamilyNode } from './models/family-node.model';
 import { FilledFamilyNode } from './models/filled-family-node.model';
 import { buildDescendingFamilyTree } from './helpers/build-descending-tree';
-import { FamilyTreeActions } from './family-node.actions';
 import { tap } from 'rxjs/operators';
 import { FamilyNodeService } from '../services/family-node/family-node.service';
 import { addEntities } from '../../shared/store/entity-operators';
 import { patch } from '@ngxs/store/operators';
 import { mapServiceToStateFamilyModel } from './family-node.state.dto';
 import { EntitiesMap } from '../../shared/store/entity-state.model';
+import { FamilyNodeActions } from './family-node.actions';
 
 @State<FamilyNodeStateModel>({
   name: 'familyTree',
@@ -51,10 +51,10 @@ export class FamilyNodeState {
     return buildDescendingFamilyTree(selectedNodeId, nodeMap);
   }
 
-  @Action(FamilyTreeActions.LoadNodesByTreeId)
+  @Action(FamilyNodeActions.LoadNodesByTreeId)
   loadNodesByTreeId(
     ctx: StateContext<FamilyNodeStateModel>,
-    action: FamilyTreeActions.LoadNodesByTreeId
+    action: FamilyNodeActions.LoadNodesByTreeId
   ) {
     ctx.patchState({
       nodeEntities: {

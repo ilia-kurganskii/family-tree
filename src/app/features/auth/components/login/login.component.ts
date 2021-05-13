@@ -37,14 +37,14 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   loginError$!: Observable<TuiValidationError | null>;
 
-  emailControl = new FormControl('test@test.te', [
+  emailControl = new FormControl('email@gmail.com', [
     Validators.email,
     Validators.required,
   ]);
 
   loginForm: FormGroup = new FormGroup({
     email: this.emailControl,
-    password: new FormControl('password', [Validators.required]),
+    password: new FormControl('pa$word1', [Validators.required]),
   });
 
   private ngUnsubscribe = new Subject();

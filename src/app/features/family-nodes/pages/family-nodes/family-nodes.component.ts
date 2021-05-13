@@ -7,7 +7,7 @@ import { filledFamilyNodeToD3FamilyNode } from './family-nodes.dto';
 import { map } from 'rxjs/operators';
 import { FilledFamilyNode } from '../../store/models/filled-family-node.model';
 import { combineLatest } from 'rxjs';
-import { FamilyTreeActions } from '../../store/family-node.actions';
+import { FamilyNodeActions } from '../../store/family-node.actions';
 
 @Component({
   selector: 'ft-family-tree',
@@ -35,6 +35,6 @@ export class FamilyNodesComponent implements OnInit {
       )
     );
 
-    this.store.dispatch(FamilyTreeActions.LoadNodesByTreeId);
+    this.store.dispatch(FamilyNodeActions.LoadNodesByTreeId);
   }
 }
