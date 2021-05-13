@@ -10,10 +10,10 @@ const routes: Routes = [
     component: LoginComponent,
   },
   {
-    path: 'tree',
+    path: 'trees',
     loadChildren: () =>
-      import('./features/family-tree/family-tree.module').then(
-        (m) => m.FamilyTreeModule
+      import('./features/family-tree-list/family-tree-list.module').then(
+        (m) => m.FamilyTreeListModule
       ),
     canActivate: [AuthGuard],
   },

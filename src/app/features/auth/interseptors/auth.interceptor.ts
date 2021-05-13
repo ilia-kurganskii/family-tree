@@ -24,10 +24,10 @@ export class AuthInterceptor implements HttpInterceptor {
         const isAuthenticated = this.store.selectSnapshot(
           AuthState.isAuthenticated
         );
-        if ([401, 403].includes(err.status) && isAuthenticated) {
-          // auto logout if 401 or 403 response returned from api
-          this.store.dispatch(AuthActions.Logout);
-        }
+        // if ([401, 403].includes(err.status) && isAuthenticated) {
+        //   // auto logout if 401 or 403 response returned from api
+        //   this.store.dispatch(AuthActions.Logout);
+        // }
 
         const error = err?.error || { message: [err.statusCode] };
         return throwError(error);

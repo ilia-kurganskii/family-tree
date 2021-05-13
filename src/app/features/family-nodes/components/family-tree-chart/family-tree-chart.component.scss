@@ -1,0 +1,19 @@
+@import '~@taiga-ui/core/styles/taiga-ui-local';
+
+.node_wrapper {
+  .node {
+    &__title {
+      font: var(--tui-font-heading-4);
+    }
+
+    &__text {
+      font: var(--tui-font-text-m);
+    }
+  }
+}
+
+.link {
+  fill: none;
+  stroke: #000;
+  stroke-width: 1;
+}

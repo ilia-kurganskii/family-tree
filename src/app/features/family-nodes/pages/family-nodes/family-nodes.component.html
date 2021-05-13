@@ -1,0 +1,6 @@
+<ng-container *tuiLet="rootNode$ | async as rootNode">
+  <ft-family-tree-chart
+    *ngIf="rootNode"
+    [root]="rootNode"
+  ></ft-family-tree-chart>
+</ng-container>

@@ -10,7 +10,7 @@ import { BackendErrorModel } from '../../shared/models/backend-error.model';
 @State<AuthStateModel>({
   name: 'auth',
   defaults: {
-    isAuthenticate: false,
+    isAuthenticate: true,
     username: null,
     isLoading: false,
   },
