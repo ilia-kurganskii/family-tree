@@ -1,8 +1,8 @@
 import { FamilyNode } from './models/family-node.model';
-import { ResponseNodeModel } from '../services/family-node/models/response.model';
+import { NodeOutputDtoModel } from '../../api/models/node-output-dto.model';
 
 export function mapServiceToStateFamilyModel(
-  input: ResponseNodeModel
+  input: NodeOutputDtoModel
 ): FamilyNode {
   return {
     ...input,

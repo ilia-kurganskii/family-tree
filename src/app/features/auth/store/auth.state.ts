@@ -44,7 +44,6 @@ export class AuthState {
       tap((result) => {
         ctx.patchState({
           isAuthenticate: true,
-          username: result.username,
           isLoading: false,
         });
       }),

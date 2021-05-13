@@ -14,5 +14,4 @@ export interface FamilyNode {
   };
   parentIds: string[];
   childrenIds: string[];
-  treeId: string;
 }

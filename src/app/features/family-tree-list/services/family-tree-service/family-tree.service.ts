@@ -3,11 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ENVIRONMENT } from '../../../../app.const';
 import { EnvironmentModel } from '../../../shared/models/environment.model';
-import {
-  ResponseTreeListModel,
-  ResponseTreeModel,
-} from './models/response.model';
-import { RequestCreateTreeModel } from './models/request.model';
+import { TreesOutputDtoModel } from '../../../api/models/trees-output-dto.model';
+import { CreateTreeInputDtoModel } from '../../../api/models/create-tree-input-dto.model';
+import { TreeOutputDtoModel } from '../../../api/models/tree-output-dto.model';
 
 @Injectable()
 export class FamilyTreeService {
@@ -18,15 +16,15 @@ export class FamilyTreeService {
     @Inject(ENVIRONMENT) private readonly env: EnvironmentModel
   ) {}
 
-  loadTrees(): Observable<ResponseTreeListModel> {
-    return this.http.get<ResponseTreeListModel>(
+  loadTrees(): Observable<TreesOutputDtoModel> {
+    return this.http.get<TreesOutputDtoModel>(
       `${this.host}/family-tree/trees`,
       { withCredentials: true }
     );
   }
 
-  createTree(payload: RequestCreateTreeModel): Observable<ResponseTreeModel> {
-    return this.http.post<ResponseTreeModel>(
+  createTree(payload: CreateTreeInputDtoModel): Observable<TreeOutputDtoModel> {
+    return this.http.post<TreeOutputDtoModel>(
       `${this.host}/family-tree/trees`,
       payload
     );
